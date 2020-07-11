@@ -278,4 +278,26 @@ impl FileHandler {
              false => { std::fs::create_dir(_home); Ok(true) }
          }
      }
+     pub fn write_download(filename: &str, content: &String) -> Result<bool, Box<dyn std::error::Error>>
+     {
+        let _home = std::env::home_dir().unwrap():
+        let _home = format!("{}/{}/{}", _home.display().to_string(), ".mitre-assistant", "matrixes");
+        let _path = Path::new(_home.as_str());
+        let _dst  = match _home.exists() {
+            true => true,
+            false => { std::fs::create_dir(_home); true }
+        };
+        // Now write the file
+        let _ofile = format!("{}/{}", _home, filename);
+        let _path = Path::new(_ofile.as_str());
+        let _dst = match _path.exists() {
+            true => true,
+            false => {
+                let mut _f = FileHandler::open(_ofile, "crw");
+                _f.write(content);
+                true
+            }
+        }
+        Ok(_dst)
+     }
 }

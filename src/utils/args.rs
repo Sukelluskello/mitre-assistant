@@ -6,6 +6,11 @@ mod parser;
 use parser::EnterpriseMatrixParser;
 
 
+#[path = "../modules/web client.rs"]
+mod web client;
+use web client::WebClient;
+
+
 /// # Globals
 /// Represent global variables used throughout this source file.
 static _VERSION: &str = "v.0.0.1"; 
@@ -37,7 +42,7 @@ impl ArgumentsParser<'_> {
                         .version(_VERSION)
                         .about(_ABOUT)
                         .subcommand(
-                            SubCommand::with_name("load")
+                            SubCommand::with_name("download")
                                        .author(_AUTHOR)
                                        .version(_VERSION)
                                        .about("A more useful utility for the ATT&CK Matrix")
@@ -67,21 +72,22 @@ impl ArgumentsParser<'_> {
     /// ```
     pub fn parse(&self) -> Result<(), Box<dyn std::error::Error>>
     {
-        if self.inputs.is_present("load") {
+        if self.inputs.is_present("download") {
             self.load()?;
         }
         Ok(())
     }
-    pub fn load(&self) -> Result<(), Box<dyn std::error::Error>>
+    pub fn download(&self) -> Result<(), Box<dyn std::error::Error>>
     {
-        let _subcommand = self.inputs.subcommand_matches("load").unwrap();
+        let _subcommand = self.inputs.subcommand_matches("download").unwrap();
         let _matrix = match _subcommand.is_present("matrix") {
             true => _subcommand.value_of("matrix").unwrap(),
             false => "None"
         };
         if _matrix != "None" {
+            let _wc = WebClient::new();
             let _mx = match _matrix {
-                "enterprise" => { let _p  = EnterpriseMatrixParser::new(); _p.load() },
+                "enterprise" => _wc.download("enterprise")?,
                 //"pre-attack" => _wc.load("pre-attack")?,
                 //"mobile" => _wc.load("mobile")?,
                 _ => ()
