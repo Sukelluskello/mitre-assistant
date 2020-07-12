@@ -121,8 +121,9 @@ impl ArgumentsParser<'_> {
             false => "None"
         };
         if _matrix != "None" {
-            let _emp = EnterpriseMatrixParser::new();
+            let mut _emp = EnterpriseMatrixParser::new();
             _emp.baseline(_matrix)?;
+            println!("{}", _emp.to_string());
         }
         Ok(())
     }

@@ -1,2 +1,3 @@
 pub mod args;
-mod fshandler;
+pub mod regexes;
+pub mod fshandler;
