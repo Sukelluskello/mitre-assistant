@@ -2,7 +2,7 @@ use reqwest;
 use serde_json;
 
 
-#[path = "../../utils/fshandler.rs"]
+#[path = "../utils/fshandler.rs"]
 mod fshandler;
 use fshandler::FileHandler;
 
@@ -41,7 +41,7 @@ impl WebClient {
     /// 
     /// let _mx = _wc.download("enterprise-attack");   // load the enterprise matrix
     /// ```
-    pub fn download(&self, matrix_type: &str)  -> Result<(), Box<dyn std::error::Error>>
+    pub fn download(&self, matrix_type: &str)  -> Result<String, Box<dyn std::error::Error>>
     {
         let _url = match matrix_type {
             "enterprise" => self.source_urls[0].1,
@@ -49,17 +49,15 @@ impl WebClient {
             "pre-attack" => self.source_urls[2].1,
             _ => "None"
         };
+        let _dashes = "=".repeat(_url.len());
+        println!("{}", _dashes);
+        println!("\nDownlading Matrix : {}\nDownloading From  : {}\n", matrix_type, _url);
+        println!("{}", _dashes);
         let _json = reqwest::blocking::get(_url)?.text()?;
-        if !_json.status.is_success() {
-            Ok(Err())
-        } else {
-            if FileHandler::check_for_config_folder()? {
-                let matrix_type = format!("{}.json", matrix_type);
-                if FileHandler::write_download(matrix_type.as_str(), &_json)? {
-                    // ...here...
-                    println!("Downloaded: {}", matrix_type);
-                }
-            }
+        let _filename = format!("{}.json", matrix_type);
+        if FileHandler::check_for_config_folder().unwrap() {
+            FileHandler::write_download(_filename.as_str(), &_json)?;
         }
+        Ok(_json)
     }
 }

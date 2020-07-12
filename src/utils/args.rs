@@ -6,9 +6,11 @@ mod parser;
 use parser::EnterpriseMatrixParser;
 
 
-#[path = "../modules/web client.rs"]
-mod web client;
-use web client::WebClient;
+#[path = "../modules/webclient.rs"]
+mod webclient;
+use webclient::WebClient;
+
+
 
 
 /// # Globals
@@ -55,6 +57,20 @@ impl ArgumentsParser<'_> {
                                                 .help("Load a Matrix From ATT&CK: (Enterprise|Mobile|Pre-Attatck)")
                                         )
                         )
+                        .subcommand(
+                            SubCommand::with_name("baseline")
+                            .author(_AUTHOR)
+                            .version(_VERSION)
+                            .about("Parse a Matrix into comprehensive insights")
+                            .arg(
+                                 Arg::with_name("matrix")
+                                     .short("m")
+                                     .long("matrix")
+                                     .value_name("matrix_name")
+                                     .takes_value(true)
+                                     .help("Load a Matrix From ATT&CK: (Enterprise|Mobile|Pre-Attatck)")
+                             )
+                        )
                         .get_matches()
         }
     }
@@ -73,7 +89,9 @@ impl ArgumentsParser<'_> {
     pub fn parse(&self) -> Result<(), Box<dyn std::error::Error>>
     {
         if self.inputs.is_present("download") {
-            self.load()?;
+            self.download()?;
+        } else if self.inputs.is_present("baseline") {
+            self.baseline()?
         }
         Ok(())
     }
@@ -88,11 +106,23 @@ impl ArgumentsParser<'_> {
             let _wc = WebClient::new();
             let _mx = match _matrix {
                 "enterprise" => _wc.download("enterprise")?,
-                //"pre-attack" => _wc.load("pre-attack")?,
-                //"mobile" => _wc.load("mobile")?,
-                _ => ()
+                "pre-attack" => _wc.download("pre-attack")?,
+                "mobile" => _wc.download("mobile")?,
+                _ => "None".to_string()
             };
-            println!("{:#?}", _mx);
+        }
+        Ok(())
+    }
+    pub fn baseline(&self) -> Result<(), Box<dyn std::error::Error>>
+    {
+        let _subcommand = self.inputs.subcommand_matches("baseline").unwrap();
+        let _matrix = match _subcommand.is_present("matrix") {
+            true => _subcommand.value_of("matrix").unwrap(),
+            false => "None"
+        };
+        if _matrix != "None" {
+            let _emp = EnterpriseMatrixParser::new();
+            _emp.baseline(_matrix)?;
         }
         Ok(())
     }

@@ -9,6 +9,11 @@ use fs2::{ self, FileExt };
 use walkdir::{ DirEntry, WalkDir };
 
 
+#[path = "../structs/errors.rs"]
+mod errors;
+use errors::*;
+
+
 /// # Custom Errors - Exit Process
 /// A convenient method for lightweight usage to exit the program
 /// due to a condition.
@@ -32,15 +37,6 @@ pub fn exit_process(log_level: &str, msg: &str) {
 }
 
 
-/// # FileHandler - RepoFileListing
-/// This object hold a listing of directory entries by mime extension.
-/// 
-/// Each extension type is mapped to a Vec<DirEntry>.
-/// 
-#[derive(Debug)]
-pub struct RepoFileListing {
-    pub files: HashMap<String, Vec<DirEntry>>
-}
 /// # FileSystem Handler Utility
 /// The filesystem handler utility provides convenience helper functions
 /// with the filesystem.  It is intended to have this source file provide
@@ -278,26 +274,29 @@ impl FileHandler {
              false => { std::fs::create_dir(_home); Ok(true) }
          }
      }
-     pub fn write_download(filename: &str, content: &String) -> Result<bool, Box<dyn std::error::Error>>
+     pub fn write_download(filename: &str, content: &String) -> Result<(), Box<dyn std::error::Error>>
      {
-        let _home = std::env::home_dir().unwrap():
-        let _home = format!("{}/{}/{}", _home.display().to_string(), ".mitre-assistant", "matrixes");
+        let _home = std::env::home_dir().unwrap().display().to_string();
+        let _home = format!("{}/{}/{}", _home, ".mitre-assistant", "matrixes");
         let _path = Path::new(_home.as_str());
-        let _dst  = match _home.exists() {
+        let _check = match _path.exists()  {
             true => true,
-            false => { std::fs::create_dir(_home); true }
+            false => { std::fs::create_dir(_path); true }
         };
-        // Now write the file
-        let _ofile = format!("{}/{}", _home, filename);
-        let _path = Path::new(_ofile.as_str());
-        let _dst = match _path.exists() {
-            true => true,
-            false => {
-                let mut _f = FileHandler::open(_ofile, "crw");
-                _f.write(content);
-                true
-            }
-        }
-        Ok(_dst)
+        let _dst_file = format!("{}/{}", _home, filename);
+        let _path = Path::new(&_dst_file);
+        let mut _f = FileHandler::open(_dst_file.as_str(), "crw");
+        _f.write(content);
+        Ok(())
+     }
+     pub fn load_resource(subfolder: &str, resource: &str)
+        -> BufReader<File>
+     {
+         let _home = std::env::home_dir().unwrap().display().to_string();
+         let _home = format!("{}/{}/{}/{}", _home, ".mitre-assistant", subfolder, resource);
+         println!("{}", _home);
+         //let _path = Path::new(&_home);
+         let _file = FileHandler::open(_home.as_str(), "r");
+         BufReader::new(_file.handle)
      }
 }

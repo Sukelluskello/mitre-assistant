@@ -6,8 +6,9 @@
 extern crate reqwest;
 extern crate serde_json;
 
-mod utils;
-use utils::args::ArgumentsParser;
+#[path = "./utils/args.rs"]
+mod args;
+use args::ArgumentsParser;
 
 
 fn main()
