@@ -284,7 +284,6 @@ impl FileHandler {
             false => { std::fs::create_dir(_path); true }
         };
         let _dst_file = format!("{}/{}", _home, filename);
-        let _path = Path::new(&_dst_file);
         let mut _f = FileHandler::open(_dst_file.as_str(), "crw");
         _f.write(content);
         Ok(())
