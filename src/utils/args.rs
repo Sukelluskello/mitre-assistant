@@ -17,7 +17,7 @@ use webclient::WebClient;
 /// Represent global variables used throughout this source file.
 static _VERSION: &str = "v.0.0.1"; 
 static _AUTHOR: &str = "carlos diaz | @dfirence\n\n";
-static _ABOUT: &str = "Mitre Attack AAssistant";
+static _ABOUT: &str = "Mitre Attack Assistant";
 
 
 /// # ArgumentsParser
