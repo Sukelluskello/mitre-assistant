@@ -288,6 +288,20 @@ impl FileHandler {
         _f.write(content);
         Ok(())
      }
+     pub fn write_baseline(filename: &str, content: &String) -> Result<(), Box<dyn std::error::Error>>
+     {
+        let _home = std::env::home_dir().unwrap().display().to_string();
+        let _home = format!("{}/{}/{}", _home, ".mitre-assistant", "baselines");
+        let _path = Path::new(&_home);
+        let _check = match _path.exists() {
+            true => true,
+            false => { std::fs::create_dir(_path); true }
+        };
+        let _dst_file = format!("{}/{}", _home, filename);
+        let mut _f = FileHandler::open(_dst_file.as_str(), "crw");
+        _f.write(content);
+        Ok(())
+     }
      pub fn load_resource(subfolder: &str, resource: &str)
         -> BufReader<File>
      {

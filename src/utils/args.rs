@@ -123,6 +123,7 @@ impl ArgumentsParser<'_> {
         if _matrix != "None" {
             let mut _emp = EnterpriseMatrixParser::new();
             _emp.baseline(_matrix)?;
+            _emp.save_baseline();
             println!("{}", _emp.to_string());
         }
         Ok(())

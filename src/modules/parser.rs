@@ -201,4 +201,8 @@ impl EnterpriseMatrixParser {
     {
         serde_json::to_string_pretty(self).unwrap()
     }
+    pub fn save_baseline(&self)
+    {
+        FileHandler::write_baseline("baseline-enterprise.json", &self.to_string());
+    }
 }
