@@ -302,6 +302,14 @@ impl FileHandler {
         _f.write(content);
         Ok(())
      }
+     /// # FileHandler - LoadResource
+     /// Convenient method to read an already parsed file from any downloaded matrix type and which
+     /// is stored under the *.mitre-assistant* home user location.
+     ///
+     /// ## Example
+     /// ```rust
+     /// let _fh = FileHandler::load_resource("baselines", "baselines-enterprise.json");
+     /// ```
      pub fn load_resource(subfolder: &str, resource: &str)
         -> BufReader<File>
      {

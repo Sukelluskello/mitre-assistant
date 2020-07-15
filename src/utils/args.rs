@@ -91,7 +91,7 @@ impl ArgumentsParser<'_> {
         if self.inputs.is_present("download") {
             self.download()?;
         } else if self.inputs.is_present("baseline") {
-            self.baseline()?
+            self.baseline()?;
         }
         Ok(())
     }
