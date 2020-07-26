@@ -106,11 +106,11 @@ impl EnterpriseMatrixParser {
                 if _scanner.pattern.is_match(&_x) {
                     _is_subtechnique = true;
                     self.extract_platforms(_t, _is_subtechnique);
-                    self.extract_techniques_and_tactics(_t, _is_subtechnique);
+                    //self.extract_techniques_and_tactics(_t, _is_subtechnique);
                 } else {
                     _is_subtechnique = false;
                     self.extract_platforms(_t, _is_subtechnique);
-                    self.extract_techniques_and_tactics(_t, _is_subtechnique);
+                    //self.extract_techniques_and_tactics(_t, _is_subtechnique);
                 }
                 self.extract_tactics_killchain(_t);
                 if _x.contains("x_mitre_data_sources") {
@@ -164,10 +164,12 @@ impl EnterpriseMatrixParser {
         let _tid = items["external_references"].as_array().expect("Problem With External References");
         let _tid = _tid[0]["external_id"].as_str().expect("Problem With External ID");
         // Obtain the technique name
+
         let _tname = items["name"].as_str().expect("Problem With Technique Name");
         for _item in items["x_mitre_platforms"].as_array().unwrap().iter() {
             let _os = _item.as_str().unwrap();
             self.details.platforms.insert(_os.to_string());
+            // Extract Data Sources
             for _item in items["kill_chain_phases"].as_array().unwrap().iter() {
                 let _tactic = &_item["phase_name"].as_str().expect("Problem With Killchain Phase");
                 let mut _et = EnterpriseTechnique::new();
@@ -175,12 +177,23 @@ impl EnterpriseMatrixParser {
                 _et.tid = _tid.to_string();
                 _et.tactic = _tactic.to_string();
                 _et.technique = _tname.to_string();
+                let mut _data_sources = String::from("");
+                let _d = items.as_object().expect("Unable to Deserialize into String");
+                if _d.contains_key("x_mitre_data_sources") {
+                    for _ds in items["x_mitre_data_sources"].as_array().expect("Deserializing Data Sources Issue") {
+                        _data_sources.push_str(_ds.as_str().unwrap());
+                        _data_sources.push_str("|");
+                    }
+                    _et.datasources = _data_sources;
+                }
                 if is_subtechnique {
                     self.details.breakdown_subtechniques.platforms.push(_et);
                     self.details.uniques_subtechniques.push(_tid.to_string());
                 } else {
                     self.details.breakdown_techniques.platforms.push(_et);
-                    self.details.uniques_techniques.push(_tid.to_string());      
+                    self.details.uniques_techniques.push(_tid.to_string());
+                    //let _d = items.as_object().expect("Unable to Deserialize into String");
+                    //println!("{:#?}", _d["x_mitre_data_sources"]);     
                 }
             }
         }
@@ -201,6 +214,7 @@ impl EnterpriseMatrixParser {
         self.details.stats.count_tactics = self.details.tactics.len();
         Ok(())
     }
+    /*
     fn extract_techniques_and_tactics(&mut self, items: &serde_json::Value, is_subtechnique: bool)
         -> Result<(), Box<dyn std::error::Error>>
     {
@@ -227,6 +241,7 @@ impl EnterpriseMatrixParser {
         self.details.stats.count_active_subtechniques = self.subtechniques.len();
         Ok(())
     }
+    */
     pub fn to_string(&self) -> String
     {
         serde_json::to_string_pretty(&self.details).unwrap()

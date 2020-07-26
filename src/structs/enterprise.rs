@@ -53,19 +53,21 @@ impl EnterpriseTechniquesByPlatform {
 
 #[derive(Debug,Deserialize, Serialize)]
 pub struct EnterpriseTechnique {
-    pub platform:   String,
-    pub tid:        String,
-    pub technique:  String,
-    pub tactic:     String,
+    pub platform:       String,
+    pub tid:            String,
+    pub technique:      String,
+    pub tactic:         String,
+    pub datasources:    String,
 }
 impl EnterpriseTechnique {
     pub fn new() -> Self
     {
         EnterpriseTechnique {
-            platform:   String::from(""),
-            tid:        String::from(""),
-            technique:  String::from(""),
-            tactic:     String::from("")
+            platform:       String::from(""),
+            tid:            String::from(""),
+            technique:      String::from(""),
+            tactic:         String::from(""),
+            datasources:    String::from("None")
         }
     }
 }
