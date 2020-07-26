@@ -11,6 +11,9 @@ mod webclient;
 use webclient::WebClient;
 
 
+#[path = "../modules/searcher.rs"]
+mod searcher;
+use searcher::MatrixSearcher;
 
 
 /// # Globals
@@ -71,6 +74,28 @@ impl ArgumentsParser<'_> {
                                      .help("Load a Matrix From ATT&CK: (Enterprise|Mobile|Pre-Attatck)")
                              )
                         )
+                        .subcommand(
+                            SubCommand::with_name("search")
+                            .author(_AUTHOR)
+                            .version(_VERSION)
+                            .about("Search The Baseline")
+                            .arg(
+                                 Arg::with_name("matrix")
+                                     .short("m")
+                                     .long("matrix")
+                                     .value_name("matrix_name")
+                                     .takes_value(true)
+                                     .help("Load a Matrix From ATT&CK: (Enterprise|Mobile|Pre-Attatck)")
+                             )
+                             .arg(
+                                Arg::with_name("technique_name")
+                                .short("t")
+                                .long("technique-name")
+                                .value_name("technique_name")
+                                .takes_value(true)
+                                .help("Search By Technique Name - e.g., Data Staged | Must use with `-m`")                                 
+                             )
+                        )                        
                         .get_matches()
         }
     }
@@ -92,6 +117,8 @@ impl ArgumentsParser<'_> {
             self.download()?;
         } else if self.inputs.is_present("baseline") {
             self.baseline()?;
+        } else if self.inputs.is_present("search") {
+            self.search()?;
         }
         Ok(())
     }
@@ -124,8 +151,25 @@ impl ArgumentsParser<'_> {
             let mut _emp = EnterpriseMatrixParser::new();
             _emp.baseline(_matrix)?;
             _emp.save_baseline();
-            println!("{}", _emp.to_string());
+            //println!("{}", _emp.to_string());
         }
+        Ok(())
+    }
+    pub fn search(&self) -> Result<(), Box<dyn std::error::Error>>
+    {
+        let _subcommand = self.inputs.subcommand_matches("search").unwrap();
+        let _matrix = match _subcommand.is_present("matrix") {
+            true => _subcommand.value_of("matrix").unwrap(),
+            false => "None"
+        };
+        let _search_term = match _subcommand.is_present("technique_name") {
+            true => _subcommand.value_of("technique_name").unwrap(),
+            false => "None"
+        };
+        if _matrix != "None" && _search_term != "None" {
+            let mut _search = MatrixSearcher::new(_matrix);
+            _search.enterprise_by_name(_search_term);
+        }        
         Ok(())
     }
 }

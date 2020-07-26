@@ -1,6 +1,7 @@
 #![allow(dead_code)]
 #![allow(unused_imports)]
 #![allow(unused_must_use)]
+#[macro_use] extern crate prettytable;
 
 
 extern crate reqwest;

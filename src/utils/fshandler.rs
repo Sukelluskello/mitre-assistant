@@ -320,4 +320,19 @@ impl FileHandler {
          let _file = FileHandler::open(_home.as_str(), "r");
          BufReader::new(_file.handle)
      }
+     pub fn load_baseline(subfolder: &str, resource: &str)
+        -> Vec<u8>
+     {
+         let _home = std::env::home_dir().unwrap().display().to_string();
+         let _home = format!("{}/{}/{}/{}", _home, ".mitre-assistant", subfolder, resource);
+         //println!("{}", _home);
+         //let _path = Path::new(&_home);
+         let _file = FileHandler::open(_home.as_str(), "r");
+         //BufReader::new(_file.handle)
+
+         let mut _bytes: Vec<u8> = Vec::with_capacity(_file.size as usize);
+         let mut _bufr = BufReader::new(_file.handle);
+         _bufr.read_to_end(&mut _bytes).expect("Unable to load Requested Resource into Byte Vector");
+         _bytes
+     }     
 }
