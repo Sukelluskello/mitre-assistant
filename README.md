@@ -33,6 +33,7 @@ SUBCOMMANDS:
     baseline    Parse a Matrix into comprehensive insights
     download    A more useful utility for the ATT&CK Matrix
     help        Prints this message or the help of the given subcommand(s)
+    search      Search The Baseline
 
 ```
 <br/>
@@ -113,7 +114,7 @@ After you have downloaded a matrix, and you have run the baseline command, you n
 ```bash
 # Search Subcommand
 #
-$> mitre-assistant baseline -h
+$> mitre-assistant search -h
 
 # Output
 mitre-assistant-search v.0.0.1
@@ -184,7 +185,7 @@ $> mitre-assistant search -m enterprise -t "Endpoint Denial of Service"
 
 #### Search For Revoked Techniques
 
-You will find it common, that upstream changes occur without notice by Mitre, or at least that has been my experience - and it sucks.  Breaks your entire day on a Monday :(
+You will find it common that upstream changes occur without notice by Mitre, or at least that has been my experience - and it sucks.  Breaks your entire day on a Monday :(, as you are now trying to find out what was revoked.
 
 You can just use the **revoked** keyword in your search
 
@@ -197,12 +198,32 @@ $> mitre-assistant search -m enterprise -t "revoked"
 
 <br/>
 
+#### Search For Summary Stats Of the Matrix
+As you download a matrix and you then baseline them, the custom jsons, will have a summary key called **stats**.  Check out this example for the enterprise matrix.
+
+<br/>
+
+```bash
+$> mitre-assistant search -m enterprise -t "stats"
+```
+<br/>
+
+![image](https://user-images.githubusercontent.com/11415591/88490385-4555fb80-cf69-11ea-958c-4540a44bca3e.png)
+
+<br/>
+
+#### **Note: Stats**
+The numbers are based on your current snapshot of the downloaded matrix.  It is **important** that you update the local copies of the matrixes you are using with the `mite-assistant`.  Remember, to update, simple use the **download** subcommand for the matrix you want to update.  
+
+The `mitre-assistant` at this moment does not keep backups before you update.
+
+<br/>
+<br/>
+
 ## Why Even Bother
 I work in the Security Industry for a Service Provider, and the amount of work we have to do to work with the Mitre Matrix is significant.  As a consequence, I have to constantly check the status of the matrix, and ask questions of its data - continously.
 
-I have seen many cool utilities from other folks whose intent is the same - simplify this matrix for daily usage.  I have used some of their tools, and haven't seen what I am looking for.  I also don't want to always install an interpreted language just to get some basic information from the JSON files of the matrix, and lastly, I also don't find the website useful for people that have to achieve work with the framework - clicking links is not fun.
-
-So in the end, I rather create my own once and for all.
+I have seen many cool utilities from other folks whose intent is the same - simplify this matrix for daily usage.  I have used some of their tools.  Sometimes, you just have to create your own, and now wait on anyone.
 
 ## Data Interchange Formats
 It is my intent to provide CSV and JSON... **again**, CSV **and** JSON (both). Stay tuned!
@@ -11311,10 +11332,10 @@ cti repo without our knowledge.
   ],
   "stats": {
     "count_revoked_techniques": 136,
-    "count_active_techniques": 0,
-    "count_active_subtechniques": 0,
+    "count_active_techniques": 160,
+    "count_active_subtechniques": 272,
     "count_malwares": 351,
-    "count_adversaries": 109,
+    "count_adversaries": 108,
     "count_tools": 61,
     "count_platforms": 9,
     "count_tactics": 12,

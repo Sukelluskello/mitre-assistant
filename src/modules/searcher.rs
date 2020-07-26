@@ -9,7 +9,7 @@ use parser::EnterpriseMatrixBreakdown;
 
 #[path = "../structs/enterprise.rs"]
 mod enterprise;
-use enterprise::EnterpriseTechnique;
+use enterprise::{EnterpriseTechnique, EnterpriseMatrixStatistics};
 
 
 #[path = "../utils/fshandler.rs"]
@@ -44,18 +44,21 @@ impl MatrixSearcher {
         let mut _results: Vec<String> = vec![];
         let mut _valid: Vec<(&str, usize)> = vec![];
         let mut _wants_revoked: bool = false;
+        let mut _wants_stats = false;
         let _scanner = RegexPatternManager::load_search_term_patterns();
-        if search_term.to_lowercase().as_str() == ("revoked") {
+        if search_term.to_lowercase().as_str() == "revoked" {
             _valid.push((search_term, 3usize));
-            //println!("{:#?}", _valid);
             _wants_revoked = true;
+        }
+        else if search_term.to_lowercase().as_str() == "stats" {
+            _valid.push((search_term, 4usize));
+            _wants_stats = true;
         }
         else if !search_term.contains(",") {
             if _scanner.pattern.is_match(search_term) {
                 let _idx: Vec<usize> = _scanner.pattern.matches(search_term).into_iter().collect();
                 _valid.push((search_term, _idx[0]));
             }
-            //println!("{:#?}", _valid);
         }
         else if search_term.contains(",") {
             // Split the terms
@@ -81,11 +84,15 @@ impl MatrixSearcher {
                     _results.push(self.enterprise_by_name(_term));
                 } else if _pattern == &3usize {
                     _results.push(self.enterprise_revoked());
+                } else if _pattern == &4usize {
+                    _results.push(self.enterprise_stats());
                 }
             }
             _results.sort();
             if _wants_revoked {
                 self.render_enterprise_revoked_table(&_results);
+            } else if _wants_stats {
+                self.render_enterprise_stats(&_results);
             } else {
                 self.render_enterprise_table(&_results);
             }
@@ -135,6 +142,13 @@ impl MatrixSearcher {
             _results.push(_item);
         }
         serde_json::to_string_pretty(&_results).expect("(?) Error:  Unable To Deserialize Search Results By Revoked Techniques")
+    }
+    fn enterprise_stats(&self) -> String
+    {
+        //let mut _results = vec![];
+        let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
+        //_results.push(_json.stats);
+        serde_json::to_string_pretty(&_json.stats).expect("(?) Error:  Unable To Deserialize Search Results By Enterprise Stats")
     }
     fn render_enterprise_table(&self, results: &Vec<String>)
     {
@@ -190,5 +204,72 @@ impl MatrixSearcher {
             }
         }
         _table.printstd();
+    }
+    fn render_enterprise_stats(&self, results: &Vec<String>)
+    {
+        let mut _table = Table::new();
+        _table.add_row(Row::new(vec![
+            Cell::new("CATEGORY"),
+            Cell::new("TOTALS")
+        ]));
+        let _item = &results[0];
+        let _json: EnterpriseMatrixStatistics = serde_json::from_str(_item.as_str()).expect("(?) Error:  Render Table Deserialization For Stats");
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Active Techniques"),
+                Cell::new(_json.count_active_techniques.to_string().as_str()),
+            ])                                                                                                                                
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Active Subtechniques"),
+                Cell::new(_json.count_active_subtechniques.to_string().as_str())
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Revoked Techniques"),
+                Cell::new(_json.count_revoked_techniques.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Active Platforms"),
+                Cell::new(_json.count_platforms.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Active Tactics"),
+                Cell::new(_json.count_tactics.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Active Data Sources"),
+                Cell::new(_json.count_datasources.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Records For Malware"),
+                Cell::new(_json.count_malwares.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Records For Adversaries"),
+                Cell::new(_json.count_adversaries.to_string().as_str())  
+            ])
+        ); 
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Records For Tools"),
+                Cell::new(_json.count_tools.to_string().as_str()),
+            ])
+        );
+        println!("\n\n");        
+        _table.printstd();
+        println!("\n\n");    
     }
 }

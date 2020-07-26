@@ -106,11 +106,11 @@ impl EnterpriseMatrixParser {
                 if _scanner.pattern.is_match(&_x) {
                     _is_subtechnique = true;
                     self.extract_platforms(_t, _is_subtechnique);
-                    //self.extract_techniques_and_tactics(_t, _is_subtechnique);
+                    self.extract_techniques_and_tactics(_t, _is_subtechnique);
                 } else {
                     _is_subtechnique = false;
                     self.extract_platforms(_t, _is_subtechnique);
-                    //self.extract_techniques_and_tactics(_t, _is_subtechnique);
+                    self.extract_techniques_and_tactics(_t, _is_subtechnique);
                 }
                 self.extract_tactics_killchain(_t);
                 if _x.contains("x_mitre_data_sources") {
@@ -214,7 +214,6 @@ impl EnterpriseMatrixParser {
         self.details.stats.count_tactics = self.details.tactics.len();
         Ok(())
     }
-    /*
     fn extract_techniques_and_tactics(&mut self, items: &serde_json::Value, is_subtechnique: bool)
         -> Result<(), Box<dyn std::error::Error>>
     {
@@ -241,7 +240,6 @@ impl EnterpriseMatrixParser {
         self.details.stats.count_active_subtechniques = self.subtechniques.len();
         Ok(())
     }
-    */
     pub fn to_string(&self) -> String
     {
         serde_json::to_string_pretty(&self.details).unwrap()
