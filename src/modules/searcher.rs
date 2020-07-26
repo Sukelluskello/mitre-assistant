@@ -62,20 +62,19 @@ impl MatrixSearcher {
         if _valid.len() >= 1 {
             for (_term, _pattern) in _valid.iter() {
                 if _pattern == &0usize {
-                        _results.push(self.enterprise_by_id(*_term));
+                    _results.push(self.enterprise_by_id(_term));
                 } else if _pattern == &1usize {
-                        _results.push(self.enterprise_by_subtechnique_id(*_term));
+                    _results.push(self.enterprise_by_subtechnique_id(_term));
                 } else if _pattern == &2usize {
-                        _results.push(self.enterprise_by_name(*_term));
+                    _results.push(self.enterprise_by_name(_term));
                 }
-                println!("{:#?}", _results)
             }
+            println!("Results Length: {}\n\n{:#?}", _results.len(), _results)
         } else {
             println!(r#"[ "Results": {}, "SearchTerm": {} ]"#, "None Found", search_term);
         }
-
     }
-    pub fn enterprise_by_name(&self, technique_name: &str) -> String
+    fn enterprise_by_name(&self, technique_name: &str) -> String
     {
         let mut _results = vec![];
         let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
@@ -86,7 +85,7 @@ impl MatrixSearcher {
         }
         serde_json::to_string_pretty(&_results).expect("(?) Error:  Unable To Deserialize Search Results By Technique Name")
     }
-    pub fn enterprise_by_id(&self, technique_id: &str) -> String
+    fn enterprise_by_id(&self, technique_id: &str) -> String
     {
         let mut _results = vec![];
         let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
@@ -97,7 +96,7 @@ impl MatrixSearcher {
         }
         serde_json::to_string_pretty(&_results).expect("(?) Error:  Unable To Deserialize Search Results By Technique ID")
     }
-    pub fn enterprise_by_subtechnique_id(&self, technique_id: &str) -> String
+    fn enterprise_by_subtechnique_id(&self, technique_id: &str) -> String
     {
         let mut _results = vec![];
         let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
