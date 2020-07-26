@@ -15,4 +15,15 @@ impl RegexPatternManager {
               .expect("(?) Error: RegexPatternManager | Cannot Build Subtechnique Pattern")
         }
     }
+    pub fn load_technique() -> Self
+    {
+        RegexPatternManager {
+            pattern:  RegexSetBuilder::new(&[
+                r#"T\d{4}"#,
+            ]).case_insensitive(true)
+              .unicode(true)
+              .build()
+              .expect("(?) Error: RegexPatternManager | Cannot Build Technique ID Pattern")
+        }
+    }
 }

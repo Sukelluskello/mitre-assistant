@@ -32,7 +32,6 @@ impl MatrixSearcher {
     }
     pub fn enterprise_by_name(&self, technique_name: &str)
     {
-        //println!("Search Term: {}", technique_name);
         let mut _results = vec![];
         let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
         for _item in _json.breakdown_techniques.platforms.iter() {
@@ -41,5 +40,16 @@ impl MatrixSearcher {
             }
         }
         println!("{}", serde_json::to_string_pretty(&_results).unwrap());
+    }
+    pub fn enterprise_by_id(&self, technique_id: &str)
+    {
+        let mut _results = vec![];
+        let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
+        for _item in _json.breakdown_techniques.platforms.iter() {
+            if _item.tid.to_lowercase().as_str() == _technique_id.to_lowercase().as_str() {
+                _results.push(_item);
+            }
+        }
+        
     }
 }
