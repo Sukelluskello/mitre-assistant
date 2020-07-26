@@ -167,8 +167,8 @@ impl ArgumentsParser<'_> {
             false => "None"
         };
         if _matrix != "None" && _search_term != "None" {
-            let mut _search = MatrixSearcher::new(_matrix);
-            _search.enterprise_by_name(_search_term);
+            let mut _searcher = MatrixSearcher::new(_matrix);
+            _searcher.search(_search_term);
         }        
         Ok(())
     }
