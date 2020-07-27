@@ -61,10 +61,7 @@ impl MatrixSearcher {
             }
         }
         else if search_term.contains(",") {
-            // Split the terms
             let _terms: Vec<&str> = search_term.split(',').collect();
-            //println!("{:#?}", _terms);
-            // Validate the terms
             _valid = _terms.iter()
                         .filter(|_x| _scanner.pattern.is_match(_x))
                         .map(|_x| {
@@ -72,7 +69,6 @@ impl MatrixSearcher {
                             (*_x, _idx[0])
                         })
                         .collect();
-            //println!("{:#?}", _valid);
         }
         if _valid.len() >= 1 {
             for (_term, _pattern) in _valid.iter() {
@@ -96,7 +92,6 @@ impl MatrixSearcher {
             } else {
                 self.render_enterprise_table(&_results);
             }
-            //println!("Results Length: {}\n\n{:#?}", _results.len(), _results);
         } else {
             println!(r#"[ "Results": {}, "SearchTerm": {} ]"#, "None Found", search_term);
         }
@@ -145,18 +140,12 @@ impl MatrixSearcher {
     }
     fn enterprise_stats(&self) -> String
     {
-        //let mut _results = vec![];
         let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
-        //_results.push(_json.stats);
         serde_json::to_string_pretty(&_json.stats).expect("(?) Error:  Unable To Deserialize Search Results By Enterprise Stats")
     }
     fn render_enterprise_table(&self, results: &Vec<String>)
     {
-        //let _dashes: String = "=".repeat(64);
-        //println!("\n\n{}\n{}\n{}\n", _dashes, headline, _dashes);
-        // Create a new table
         let mut _table = Table::new();
-        // Add headers to the table
         _table.add_row(Row::new(vec![
             Cell::new("STATUS"),
             Cell::new("PLATFORM"),
