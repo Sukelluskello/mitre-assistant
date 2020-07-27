@@ -95,7 +95,6 @@ impl EnterpriseMatrixParser {
         let _json: serde_json::Value = serde_json::from_reader(_bufr).unwrap();
         let _scanner = RegexPatternManager::load_subtechnique();
         let mut _is_subtechnique = false;
-        // Iterate through JSON Objects
         for _t in _json["objects"].as_array().unwrap().iter() {
             let _s = _t["type"].as_str().unwrap();
             let _x = serde_json::to_string(_t).unwrap();
@@ -150,7 +149,6 @@ impl EnterpriseMatrixParser {
     }
     fn extract_datasources(&mut self, items: &serde_json::Value) -> Result<(), Box<dyn std::error::Error>>
     {
-        //println!("{:?}", items["x_mitre_data_sources"]);
         for _item in items["x_mitre_data_sources"].as_array().unwrap().iter() {
             self.details.datasources.push(_item.as_str().unwrap().to_string());
         }
@@ -163,13 +161,12 @@ impl EnterpriseMatrixParser {
     {
         let _tid = items["external_references"].as_array().expect("Problem With External References");
         let _tid = _tid[0]["external_id"].as_str().expect("Problem With External ID");
-        // Obtain the technique name
-
         let _tname = items["name"].as_str().expect("Problem With Technique Name");
+        
         for _item in items["x_mitre_platforms"].as_array().unwrap().iter() {
             let _os = _item.as_str().unwrap();
             self.details.platforms.insert(_os.to_string());
-            // Extract Data Sources
+
             for _item in items["kill_chain_phases"].as_array().unwrap().iter() {
                 let _tactic = &_item["phase_name"].as_str().expect("Problem With Killchain Phase");
                 let mut _et = EnterpriseTechnique::new();
@@ -192,8 +189,6 @@ impl EnterpriseMatrixParser {
                 } else {
                     self.details.breakdown_techniques.platforms.push(_et);
                     self.details.uniques_techniques.push(_tid.to_string());
-                    //let _d = items.as_object().expect("Unable to Deserialize into String");
-                    //println!("{:#?}", _d["x_mitre_data_sources"]);     
                 }
             }
         }
@@ -227,13 +222,9 @@ impl EnterpriseMatrixParser {
         for _item in items["kill_chain_phases"].as_array().unwrap().iter() {
             let _tactic = &_item["phase_name"].as_str().expect("Problem With Killchain Phase");
             if is_subtechnique {
-                self.subtechniques.insert(
-                    _tid.to_string()
-                );
+                self.subtechniques.insert(_tid.to_string());
             } else {
-                self.techniques.insert(
-                    _tid.to_string()
-                );             
+                self.techniques.insert(_tid.to_string());             
             }
         }
         self.details.stats.count_active_techniques = self.techniques.len();
