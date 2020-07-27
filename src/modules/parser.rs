@@ -176,6 +176,8 @@ impl EnterpriseMatrixParser {
                 _et.technique = _tname.to_string();
                 let mut _data_sources = String::from("");
                 let _d = items.as_object().expect("Unable to Deserialize into String");
+                // Extract Data Sources
+                // Normalize the Data Source
                 if _d.contains_key("x_mitre_data_sources") {
                     for _ds in items["x_mitre_data_sources"].as_array().expect("Deserializing Data Sources Issue") {
                         _data_sources.push_str(_ds.as_str().unwrap());
