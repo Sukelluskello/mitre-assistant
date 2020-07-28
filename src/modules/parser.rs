@@ -170,7 +170,7 @@ impl EnterpriseMatrixParser {
             for _item in items["kill_chain_phases"].as_array().unwrap().iter() {
                 let _tactic = &_item["phase_name"].as_str().expect("Problem With Killchain Phase");
                 let mut _et = EnterpriseTechnique::new();
-                _et.platform = _os.to_string();
+                _et.platform = _os.to_lowercase().replace(" ", "-");
                 _et.tid = _tid.to_string();
                 _et.tactic = _tactic.to_string();
                 _et.technique = _tname.to_string();
@@ -180,7 +180,7 @@ impl EnterpriseMatrixParser {
                 // Normalize the Data Source
                 if _d.contains_key("x_mitre_data_sources") {
                     for _ds in items["x_mitre_data_sources"].as_array().expect("Deserializing Data Sources Issue") {
-                        _data_sources.push_str(_ds.as_str().unwrap());
+                        _data_sources.push_str(_ds.as_str().to_lowercase().replace(" ", "-").as_str().unwrap());
                         _data_sources.push_str("|");
                     }
                     _et.datasources = _data_sources;
