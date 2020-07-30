@@ -150,7 +150,13 @@ impl EnterpriseMatrixParser {
     fn extract_datasources(&mut self, items: &serde_json::Value) -> Result<(), Box<dyn std::error::Error>>
     {
         for _item in items["x_mitre_data_sources"].as_array().unwrap().iter() {
-            self.details.datasources.push(_item.as_str().unwrap().to_string());
+            //self.details.datasources.push(_item.as_str().unwrap().to_string());
+            self.details.datasources.push(
+                _item.as_str()
+                .unwrap()
+                .to_lowercase()
+                .replace(" ", "-")
+            );
         }
         self.details.datasources.sort();
         self.details.datasources.dedup();
@@ -180,7 +186,12 @@ impl EnterpriseMatrixParser {
                 // Normalize the Data Source
                 if _d.contains_key("x_mitre_data_sources") {
                     for _ds in items["x_mitre_data_sources"].as_array().expect("Deserializing Data Sources Issue") {
-                        _data_sources.push_str(_ds.as_str().to_lowercase().replace(" ", "-").as_str().unwrap());
+                        _data_sources.push_str(
+                            _ds.as_str()
+                               .unwrap()
+                               .to_lowercase()
+                               .replace(" ", "-")
+                               .as_str());
                         _data_sources.push_str("|");
                     }
                     _et.datasources = _data_sources;

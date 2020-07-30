@@ -164,7 +164,7 @@ impl MatrixSearcher {
                         Cell::new(_row.tactic.as_str()),
                         Cell::new(_row.tid.as_str()).style_spec("FG"),
                         Cell::new(_row.technique.as_str()),
-                        Cell::new(_row.datasources.as_str())
+                        Cell::new(_row.datasources.replace("|", "\n").as_str())
                     ])
                 );
             }
