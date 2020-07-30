@@ -8,11 +8,6 @@ use serde_json;
 use serde_derive::{Deserialize, Serialize};
 
 
-#[path = "./webclient.rs"]
-mod webclient;
-use webclient::WebClient;
-
-
 #[path = "../utils/fshandler.rs"]
 mod fshandler;
 use fshandler::FileHandler;
