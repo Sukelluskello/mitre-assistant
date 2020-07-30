@@ -154,6 +154,9 @@ impl MatrixSearcher {
             Cell::new("TECHNIQUE"),
             Cell::new("DATA SOURCES")
         ]));
+        // When we get to CSV Exports, put an if statement to build
+        // the table cells without the `\n` terminators
+        // because that will likely break CSV output
         for _item in results.iter() {
             let _json: Vec<EnterpriseTechnique> = serde_json::from_str(_item.as_str()).expect("(?) Error: Render Table Deserialization");
             for _row in _json.iter() {
@@ -164,7 +167,7 @@ impl MatrixSearcher {
                         Cell::new(_row.tactic.as_str()),
                         Cell::new(_row.tid.as_str()).style_spec("FG"),
                         Cell::new(_row.technique.as_str()),
-                        Cell::new(_row.datasources.as_str())
+                        Cell::new(_row.datasources.replace("|", "\n").as_str())
                     ])
                 );
             }
