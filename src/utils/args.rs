@@ -13,7 +13,7 @@ use webclient::WebClient;
 
 #[path = "../modules/searcher.rs"]
 mod searcher;
-use searcher::MatrixSearcher;
+use searcher::EnterpriseMatrixSearcher;
 
 
 /// # Globals
@@ -179,7 +179,7 @@ impl ArgumentsParser<'_> {
             false => false
         };        
         if _matrix != "None" && _search_term != "None" {
-            let mut _searcher = MatrixSearcher::new(_matrix);
+            let mut _searcher = EnterpriseMatrixSearcher::new(_matrix);
             _searcher.search(_search_term, _wants_subtechniques);
         }        
         Ok(())

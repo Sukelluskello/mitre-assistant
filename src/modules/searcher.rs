@@ -22,11 +22,11 @@ mod regexes;
 use regexes::RegexPatternManager;
 
 
-pub struct MatrixSearcher{
+pub struct EnterpriseMatrixSearcher{
     matrix:     String,
     content:    Vec<u8> 
 }
-impl MatrixSearcher {
+impl EnterpriseMatrixSearcher {
     pub fn new(matrix_type: &str) -> Self
     {
         let _input = matrix_type.to_lowercase();
@@ -34,7 +34,7 @@ impl MatrixSearcher {
         if _input == "enterprise".to_string() {
             _content = FileHandler::load_baseline("baselines", "baseline-enterprise.json");
         }
-        MatrixSearcher {
+        EnterpriseMatrixSearcher {
             matrix:  _input,
             content: _content
         } 
@@ -59,6 +59,18 @@ impl MatrixSearcher {
             _valid.push((search_term, 5usize));
             _wants_nosub = true;
         }
+        else if search_term.to_lowercase().as_str() == "techniques" {
+            _valid.push((search_term, 6usize)); //TODO
+        }
+        else if search_term.to_lowercase().as_str() == "subtechniques" {
+            _valid.push((search_term, 7usize)); //TODO
+        }
+        else if search_term.to_lowercase().as_str() == "datasources" {
+            _valid.push((search_term, 8usize)); //TODO
+        }
+        else if search_term.to_lowercase().as_str() == "platforms" {
+            _valid.push((search_term, 10usize));    //TODO
+        }        
         else if !search_term.contains(",") {
             if _scanner.pattern.is_match(search_term) {
                 let _idx: Vec<usize> = _scanner.pattern.matches(search_term).into_iter().collect();
