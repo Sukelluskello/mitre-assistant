@@ -1,6 +1,6 @@
 # mitre-assistant
 
-A custom, more useful, and cooler MITRE-CTI-CLIENT.
+A custom, more useful, and much cooler MITRE-CTI-CLIENT.
 
 <br/>
 
