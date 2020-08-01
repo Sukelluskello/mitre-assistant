@@ -129,24 +129,25 @@ You have to tell the `search subcommand` which matrix it is going to work with b
 # All terms must be enclosed by double-quotes
 #
 $> mitre-assistant search -m enterprise -t "t1021"
-
-
-# Output
-+--------+-----------+------------------+-------+-----------------+---------------+---------------------------------+
-| STATUS | PLATFORMS | TACTIC           | TID   | TECHNIQUE       | SUBTECHNIQUES | DATA SOURCES                    |
-+--------+-----------+------------------+-------+-----------------+---------------+---------------------------------+
-| Active | linux     | lateral-movement | T1021 | Remote Services | T1021.001     | windows-registry                |
-|        | macos     |                  |       |                 | T1021.002     | windows-event-logs              |
-|        | windows   |                  |       |                 | T1021.003     | process-use-of-network          |
-|        |           |                  |       |                 | T1021.004     | process-monitoring              |
-|        |           |                  |       |                 | T1021.005     | process-command-line-parameters |
-|        |           |                  |       |                 | T1021.006     | powershell-logs                 |
-|        |           |                  |       |                 |               | packet-capture                  |
-|        |           |                  |       |                 |               | network-protocol-analysis       |
-|        |           |                  |       |                 |               | netflow-enclave-netflow         |
-|        |           |                  |       |                 |               | file-monitoring                 |
-|        |           |                  |       |                 |               | dll-monitoring                  |
-|        |           |                  |       |                 |               | authentication-logs             |
-|        |           |                  |       |                 |               | api-monitoring                  |
-+--------+-----------+------------------+-------+-----------------+---------------+---------------------------------+
 ```
+<br/>
+
+![image](https://user-images.githubusercontent.com/11415591/89109722-cf8edb80-d411-11ea-82b5-3a4dde2d90b1.png)
+
+<br/>
+
+## *Searching For A Many Techniques By ID*
+Cool, now you just have to add a comma `,` in your term and launch it again, dead-simple!
+
+<br/>
+
+```bash
+# Assumes you want to search for techniques:  T1021 & T1048
+#
+$> mitre-assistant search -m enterprise -t "t1021,t1048"
+
+```
+
+<br/>
+
+![image](https://user-images.githubusercontent.com/11415591/89109703-ae2def80-d411-11ea-9268-ab7f42527386.png)
