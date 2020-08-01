@@ -151,3 +151,22 @@ $> mitre-assistant search -m enterprise -t "t1021,t1048"
 <br/>
 
 ![image](https://user-images.githubusercontent.com/11415591/89109703-ae2def80-d411-11ea-9268-ab7f42527386.png)
+
+<br/>
+
+## *Searching & Displaying The Subtechniques*
+Another cool thing here is display the `subtechniques` for your query by using:
+
+* the `-s` flag after your query
+
+<br/>
+
+```bash
+# Assumes you want to see the Subtechniques for T1021
+mitre-assistant search -m enterprise -t "t1021"
+```
+<br/>
+
+![image](https://user-images.githubusercontent.com/11415591/89109790-69568880-d412-11ea-9869-325a35d7de13.png)
+
+<br/>
