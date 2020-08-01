@@ -39,12 +39,13 @@ impl MatrixSearcher {
             content: _content
         } 
     }
-    pub fn search(&self, search_term: &str)
+    pub fn search(&self, search_term: &str, _wants_subtechniques: bool)
     {
         let mut _results: Vec<String> = vec![];
         let mut _valid: Vec<(&str, usize)> = vec![];
         let mut _wants_revoked: bool = false;
         let mut _wants_stats = false;
+        let mut _wants_nosub = false;
         let _scanner = RegexPatternManager::load_search_term_patterns();
         if search_term.to_lowercase().as_str() == "revoked" {
             _valid.push((search_term, 3usize));
@@ -53,6 +54,10 @@ impl MatrixSearcher {
         else if search_term.to_lowercase().as_str() == "stats" {
             _valid.push((search_term, 4usize));
             _wants_stats = true;
+        }
+        else if search_term.to_lowercase().as_str() == "nosub" {
+            _valid.push((search_term, 5usize));
+            _wants_nosub = true;
         }
         else if !search_term.contains(",") {
             if _scanner.pattern.is_match(search_term) {
@@ -73,7 +78,7 @@ impl MatrixSearcher {
         if _valid.len() >= 1 {
             for (_term, _pattern) in _valid.iter() {
                 if _pattern == &0usize {
-                    _results.push(self.enterprise_by_id(_term));
+                    _results.push(self.enterprise_by_id(_term, _wants_subtechniques));
                 } else if _pattern == &1usize {
                     _results.push(self.enterprise_by_subtechnique_id(_term));
                 } else if _pattern == &2usize {
@@ -82,6 +87,8 @@ impl MatrixSearcher {
                     _results.push(self.enterprise_revoked());
                 } else if _pattern == &4usize {
                     _results.push(self.enterprise_stats());
+                } else if _pattern == &5usize {
+                    _results.push(self.enterprise_by_nosubtechniques());
                 }
             }
             _results.sort();
@@ -107,13 +114,24 @@ impl MatrixSearcher {
         }
         serde_json::to_string_pretty(&_results).expect("(?) Error:  Unable To Deserialize Search Results By Technique Name")
     }
-    fn enterprise_by_id(&self, technique_id: &str) -> String
+    fn enterprise_by_id(&self, technique_id: &str, _wants_subtechniques: bool) -> String
     {
         let mut _results = vec![];
         let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
         for _item in _json.breakdown_techniques.platforms.iter() {
             if _item.tid.to_lowercase().as_str() == technique_id.to_lowercase().as_str() {
-                _results.push(_item);
+                if _wants_subtechniques {
+                    if _item.has_subtechniques {
+                        _results.push(_item);
+                        for _subtechnique in _json.breakdown_subtechniques.platforms.iter() {
+                            if _subtechnique.tid.contains(&_item.tid) {
+                                _results.push(_subtechnique);
+                            }
+                        }
+                    }
+                } else {
+                    _results.push(_item);
+                }
             }
         }
         serde_json::to_string_pretty(&_results).expect("(?) Error:  Unable To Deserialize Search Results By Technique ID")
@@ -143,34 +161,63 @@ impl MatrixSearcher {
         let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
         serde_json::to_string_pretty(&_json.stats).expect("(?) Error:  Unable To Deserialize Search Results By Enterprise Stats")
     }
+    fn enterprise_by_nosubtechniques(&self) -> String {
+        let mut _results = vec![];
+        let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
+        for _item in _json.breakdown_techniques.platforms.iter() {
+            if !_item.has_subtechniques {
+                _results.push(_item);
+            }
+        }
+        serde_json::to_string_pretty(&_results).expect("(?) Error: Unable To Deserialize Search Results By HAS_NO_SUBTECHNIQUES")
+    }
     fn render_enterprise_table(&self, results: &Vec<String>)
     {
         let mut _table = Table::new();
         _table.add_row(Row::new(vec![
             Cell::new("STATUS"),
-            Cell::new("PLATFORM"),
+            Cell::new("PLATFORMS"),
             Cell::new("TACTIC"),
             Cell::new("TID").style_spec("FG"),
             Cell::new("TECHNIQUE"),
+            Cell::new("SUBTECHNIQUES"),
             Cell::new("DATA SOURCES")
         ]));
         // When we get to CSV Exports, put an if statement to build
         // the table cells without the `\n` terminators
         // because that will likely break CSV output
-        for _item in results.iter() {
-            let _json: Vec<EnterpriseTechnique> = serde_json::from_str(_item.as_str()).expect("(?) Error: Render Table Deserialization");
-            for _row in _json.iter() {
-                _table.add_row(
-                    Row::new(vec![
-                        Cell::new("Active"),
-                        Cell::new(_row.platform.as_str()),
-                        Cell::new(_row.tactic.as_str()),
-                        Cell::new(_row.tid.as_str()).style_spec("FG"),
-                        Cell::new(_row.technique.as_str()),
-                        Cell::new(_row.datasources.replace("|", "\n").as_str())
-                    ])
-                );
+        //let mut _dataset = vec![];
+        let mut _sorted_index: Vec<(String, usize, usize)> = vec![];
+        for (_ridx, _item) in results.iter().enumerate() {
+            let _json: Vec<EnterpriseTechnique> = serde_json::from_str(results[_ridx].as_str()).expect("(?) Error: Render Table Deserialization");
+            for (_jidx, _record) in _json.iter().enumerate() {
+                _sorted_index.push((_record.tid.clone(), _jidx, _ridx));
             }
+        }
+        _sorted_index.sort();
+        //println!("{:#?}", _sorted_index);
+        let mut _st = String::from("");
+        for (_technique, _jidx, _ridx) in _sorted_index {
+            let _json: Vec<EnterpriseTechnique> = serde_json::from_str(results[_ridx].as_str()).expect("(?) Error: Render Table Deserialization");
+            let _row = &_json[_jidx];
+            if _row.has_subtechniques {
+                _row.subtechniques.iter()
+                    .map(|x| { _st.push_str(x.as_str()); _st.push_str("|") }).collect::<Vec<_>>();
+            } else {
+                _st.push_str("n_a");
+            }
+            _table.add_row(
+                Row::new(vec![
+                    Cell::new("Active"),
+                    Cell::new(_row.platform.replace("|", "\n").as_str()),
+                    Cell::new(_row.tactic.as_str()),
+                    Cell::new(_row.tid.as_str()).style_spec("FG"),
+                    Cell::new(_row.technique.as_str()).style_spec("FW"),
+                    Cell::new(_st.replace("|", "\n").as_str()).style_spec("FW"),
+                    Cell::new(_row.datasources.replace("|", "\n").as_str())
+                ])
+            ); 
+            _st.clear();            
         }
         _table.printstd();
     }

@@ -58,6 +58,9 @@ pub struct EnterpriseTechnique {
     pub technique:      String,
     pub tactic:         String,
     pub datasources:    String,
+    pub has_subtechniques: bool,
+    pub subtechniques:  Vec<String>,
+    pub count_subtechniques: usize
 }
 impl EnterpriseTechnique {
     pub fn new() -> Self
@@ -67,8 +70,15 @@ impl EnterpriseTechnique {
             tid:            String::from(""),
             technique:      String::from(""),
             tactic:         String::from(""),
-            datasources:    String::from("None")
+            datasources:    String::from("None"),
+            has_subtechniques: false,
+            subtechniques:  vec![],
+            count_subtechniques: 0usize
         }
+    }
+    pub fn update(&mut self)
+    {
+        self.count_subtechniques = self.subtechniques.len();
     }
 }
 

@@ -88,13 +88,21 @@ impl ArgumentsParser<'_> {
                                      .help("Load a Matrix From ATT&CK: (Enterprise|Mobile|Pre-Attatck)")
                              )
                              .arg(
-                                Arg::with_name("technique_name")
+                                Arg::with_name("term_search")
                                 .short("t")
                                 .long("technique-name")
-                                .value_name("technique_name")
+                                .value_name("term_search")
                                 .takes_value(true)
                                 .help("Search By Technique Name - e.g., Data Staged | Must use with `-m`")                                 
                              )
+                             .arg(
+                                Arg::with_name("subtechniques")
+                                .short("s")
+                                .long("subtechniques")
+                                .value_name("subtechniques")
+                                .takes_value(false)
+                                .help("Search & Render Subtechniques | Must use with `-m` and `-t`")                                 
+                             )                             
                         )                        
                         .get_matches()
         }
@@ -162,13 +170,17 @@ impl ArgumentsParser<'_> {
             true => _subcommand.value_of("matrix").unwrap(),
             false => "None"
         };
-        let _search_term = match _subcommand.is_present("technique_name") {
-            true => _subcommand.value_of("technique_name").unwrap(),
+        let _search_term = match _subcommand.is_present("term_search") {
+            true => _subcommand.value_of("term_search").unwrap(),
             false => "None"
         };
+        let _wants_subtechniques = match _subcommand.is_present("subtechniques") {
+            true => true,
+            false => false
+        };        
         if _matrix != "None" && _search_term != "None" {
             let mut _searcher = MatrixSearcher::new(_matrix);
-            _searcher.search(_search_term);
+            _searcher.search(_search_term, _wants_subtechniques);
         }        
         Ok(())
     }

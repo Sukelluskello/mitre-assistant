@@ -99,14 +99,14 @@ impl EnterpriseMatrixParser {
             } else if _s == "attack-pattern" && !_x.contains("revoked")  {
                 if _scanner.pattern.is_match(&_x) {
                     _is_subtechnique = true;
-                    self.extract_platforms(_t, _is_subtechnique);
                     self.extract_techniques_and_tactics(_t, _is_subtechnique);
+                    //self.extract_techniques_and_tactics(_t, _is_subtechnique);
                 } else {
                     _is_subtechnique = false;
-                    self.extract_platforms(_t, _is_subtechnique);
                     self.extract_techniques_and_tactics(_t, _is_subtechnique);
+                    //self.extract_techniques_and_tactics(_t, _is_subtechnique);
                 }
-                self.extract_tactics_killchain(_t);
+                self.extract_tactics(_t);
                 if _x.contains("x_mitre_data_sources") {
                     self.extract_datasources(_t);
                 }
@@ -158,85 +158,87 @@ impl EnterpriseMatrixParser {
         self.details.stats.count_datasources = self.details.datasources.len();
         Ok(())
     }
-    fn extract_platforms(&mut self, items: &serde_json::Value, is_subtechnique: bool) -> Result<(), Box<dyn std::error::Error>>
+    fn extract_techniques_and_tactics(&mut self, items: &serde_json::Value, is_subtechnique: bool) -> Result<(), Box<dyn std::error::Error>>
     {
         let _tid = items["external_references"].as_array().expect("Problem With External References");
         let _tid = _tid[0]["external_id"].as_str().expect("Problem With External ID");
         let _tname = items["name"].as_str().expect("Problem With Technique Name");
-        
-        for _item in items["x_mitre_platforms"].as_array().unwrap().iter() {
-            let _os = _item.as_str().unwrap();
-            self.details.platforms.insert(_os.to_string());
+        let mut _platforms = String::from("");
+        for _os in items["x_mitre_platforms"].as_array().unwrap().iter() {
+            let _x = _os.as_str().unwrap().to_lowercase().replace(" ", "-");
+            &_platforms.push_str(_x.as_str());
+            &_platforms.push_str("|");
+            self.details.platforms.insert(_x);
+        }
+        _platforms.pop();
 
-            for _item in items["kill_chain_phases"].as_array().unwrap().iter() {
-                let _tactic = &_item["phase_name"].as_str().expect("Problem With Killchain Phase");
-                let mut _et = EnterpriseTechnique::new();
-                _et.platform = _os.to_lowercase().replace(" ", "-");
-                _et.tid = _tid.to_string();
-                _et.tactic = _tactic.to_string();
-                _et.technique = _tname.to_string();
-                let mut _data_sources = String::from("");
-                let _d = items.as_object().expect("Unable to Deserialize into String");
+        for _item in items["kill_chain_phases"].as_array().unwrap().iter() {
+            let _tactic = &_item["phase_name"].as_str().expect("Problem With Killchain Phase");
+            let mut _et = EnterpriseTechnique::new();
+            _et.platform = _platforms.clone();
+            _et.tid = _tid.to_string();
+            _et.tactic = _tactic.to_string();
+            _et.technique = _tname.to_string();
+            let _d = items.as_object().expect("Unable to Deserialize into String");
                 // Extract Data Sources
                 // Normalize the Data Source
-                if _d.contains_key("x_mitre_data_sources") {
-                    for _ds in items["x_mitre_data_sources"].as_array().expect("Deserializing Data Sources Issue") {
-                        _data_sources.push_str(
-                            _ds.as_str()
-                               .unwrap()
-                               .to_lowercase()
-                               .replace(" ", "-")
-                               .as_str());
+            if _d.contains_key("x_mitre_data_sources") {
+                let mut _data_sources = String::from("");
+                for _ds in items["x_mitre_data_sources"].as_array().expect("Deserializing Data Sources Issue") {
+                    _data_sources.push_str(
+                        _ds.as_str()
+                           .unwrap()
+                           .to_lowercase()
+                           .replace(" ", "-")
+                           .replace("/","-")
+                           .as_str());
                         _data_sources.push_str("|");
-                    }
-                    _et.datasources = _data_sources;
+                    
                 }
+                _data_sources.pop();
+                _et.datasources = _data_sources;
                 if is_subtechnique {
+                    self.subtechniques.insert(_tid.to_string());
                     self.details.breakdown_subtechniques.platforms.push(_et);
                     self.details.uniques_subtechniques.push(_tid.to_string());
                 } else {
+                    self.techniques.insert(_tid.to_string());
                     self.details.breakdown_techniques.platforms.push(_et);
                     self.details.uniques_techniques.push(_tid.to_string());
                 }
             }
         }
+        // now Correlate Subtechniques
+        for _record in &mut self.details.breakdown_techniques.platforms {
+            for _subtechnique in &self.details.uniques_subtechniques {
+                if _subtechnique.contains(&_record.tid) {
+                    _record.subtechniques.push(_subtechnique.to_string());
+                }
+            }
+            if _record.subtechniques.len() > 0usize {
+                _record.has_subtechniques = true;
+                _record.subtechniques.sort();
+                _record.subtechniques.dedup();
+            }
+            _record.update();
+        }
+        self.details.stats.count_platforms = self.details.platforms.len();
+        self.details.stats.count_active_techniques = self.techniques.len();
+        self.details.stats.count_active_subtechniques = self.subtechniques.len();
         self.details.uniques_techniques.sort();
         self.details.uniques_techniques.dedup();
         self.details.uniques_subtechniques.sort();
         self.details.uniques_subtechniques.dedup();
-        self.details.stats.count_platforms = self.details.platforms.len();
         self.details.breakdown_subtechniques.update_count();
         self.details.breakdown_techniques.update_count();
         Ok(())
     }
-    fn extract_tactics_killchain(&mut self, items: &serde_json::Value) -> Result<(), Box<dyn std::error::Error>>
+    fn extract_tactics(&mut self, items: &serde_json::Value) -> Result<(), Box<dyn std::error::Error>>
     {
         for _item in items["kill_chain_phases"].as_array().unwrap().iter() {
             self.details.tactics.insert(_item["phase_name"].as_str().unwrap().to_string());
         }
         self.details.stats.count_tactics = self.details.tactics.len();
-        Ok(())
-    }
-    fn extract_techniques_and_tactics(&mut self, items: &serde_json::Value, is_subtechnique: bool)
-        -> Result<(), Box<dyn std::error::Error>>
-    {
-        let _msg: &str = "(?) Enterprise Parser Error: Unable to Extract Techniques & Tactics";
-        // Obtain the technique id
-        let _tid = items["external_references"].as_array().expect("Problem With External References");
-        let _tid = _tid[0]["external_id"].as_str().expect("Problem With External ID");
-        // Obtain the technique name
-        let _tname = items["name"].as_str().expect("Problem With Technique Name");
-        // Obtain the Tactic Kill Chains
-        for _item in items["kill_chain_phases"].as_array().unwrap().iter() {
-            let _tactic = &_item["phase_name"].as_str().expect("Problem With Killchain Phase");
-            if is_subtechnique {
-                self.subtechniques.insert(_tid.to_string());
-            } else {
-                self.techniques.insert(_tid.to_string());             
-            }
-        }
-        self.details.stats.count_active_techniques = self.techniques.len();
-        self.details.stats.count_active_subtechniques = self.subtechniques.len();
         Ok(())
     }
     pub fn to_string(&self) -> String
