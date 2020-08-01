@@ -96,7 +96,7 @@ Downloading From  : https://raw.githubusercontent.com/mitre/cti/master/enterpris
 <br/>
 
 # *Baseline*
-Use the `baseline` subcommand after you download your matrix, to create the custom database that is required before you conduct your searches.
+Use the `baseline` subcommand after you download your matrix to create the custom database that is required before you conduct your searches.
 
 You baseline a matrix with any of the keywords:  `enterprise` or `mobile` or `pre-attack`
 
@@ -108,7 +108,7 @@ $> mitre-assistant baseline -m enterprise
 
 #Output
 /Users/alice/.mitre-assistant/matrixes/enterprise.json
-  |__(+) New File To Be Created: /Users/cdiaz/.mitre-assistant/baselines/baseline-enterprise.json
+  |__(+) New File To Be Created: /Users/alice/.mitre-assistant/baselines/baseline-enterprise.json
 ```
 <br/>
 <br/>
@@ -116,11 +116,29 @@ $> mitre-assistant baseline -m enterprise
 # *Search*
 Now you are ready to search your matrix.
 
-## *Searching For A Single Technique By ID*
 You have to tell the `search subcommand` which matrix it is going to work with by using:
 
 * the `-m` parameter followed by the name of the matrix 
 * the `-t` parameter to provide your search term.
+
+<br/>
+
+## *Searching The Enterprise Matrix For a Stats Summary*
+You use the keyword `stats` in your search term, like this
+
+```bash
+# Assumed you want the summary of items in the matrix
+#
+$> mitre-assistant search -m enterprise -t "stats"
+```
+<br/>
+
+![image](https://user-images.githubusercontent.com/11415591/89109965-ef270380-d413-11ea-9c4b-c780f2927fe0.png)
+
+<br/>
+
+## *Searching The Enterprise Matrix For A Single Technique By ID*
+
 
 <br/>
 
@@ -136,7 +154,7 @@ $> mitre-assistant search -m enterprise -t "t1021"
 
 <br/>
 
-## *Searching For A Many Techniques By ID*
+## *Searching The Enterprise Matrix For A Many Techniques By ID*
 Cool, now you just have to add a comma `,` in your term and launch it again, dead-simple!
 
 <br/>
@@ -154,7 +172,7 @@ $> mitre-assistant search -m enterprise -t "t1021,t1048"
 
 <br/>
 
-## *Searching & Displaying The Subtechniques*
+## *Searching The Enterprise Matrix & Displaying The Subtechniques*
 Another cool thing here is display the `subtechniques` for your query by using:
 
 * the `-s` flag after your query
