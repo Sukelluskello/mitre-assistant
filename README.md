@@ -163,10 +163,28 @@ Another cool thing here is display the `subtechniques` for your query by using:
 
 ```bash
 # Assumes you want to see the Subtechniques for T1021
-mitre-assistant search -m enterprise -t "t1021"
+$> mitre-assistant search -m enterprise -t "t1021" -s
 ```
 <br/>
 
 ![image](https://user-images.githubusercontent.com/11415591/89109790-69568880-d412-11ea-9869-325a35d7de13.png)
+
+<br/>
+
+## *Searching For The Revoked Techniques*
+Revoked techniques seem to be those that are discontinued and re-arranged now into subtechniques.  You can search for the ones `revoked` in the matrix by using a keyword in your search term:
+
+* the `-t` parameters with the term `revoked`
+
+<br/>
+
+```bash
+# Assumes you want to see the revoked techniques
+#
+$> mitre-assistant search -m enterprise -t "revoked"
+```
+<br/>
+
+![image](https://user-images.githubusercontent.com/11415591/89109865-074a5300-d413-11ea-87e9-5fadeb569e84.png)
 
 <br/>
