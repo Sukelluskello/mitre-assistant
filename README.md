@@ -75,6 +75,8 @@ SUBCOMMANDS:
 # *Download*
 Use the `download` subcommand to get started, you can specific which matrix to download by using any of the keywords: `enterprise` or `mobile` or `pre-attack`
 
+<br/>
+
 ```bash
 # Assumes you want to download the `enterprise` matrix
 #
@@ -97,6 +99,8 @@ Downloading From  : https://raw.githubusercontent.com/mitre/cti/master/enterpris
 Use the `baseline` subcommand after you download your matrix, to create the custom database that is required before you conduct your searches.
 
 You baseline a matrix with any of the keywords:  `enterprise` or `mobile` or `pre-attack`
+
+<br/>
 
 ```bash
 $> mitre-assistant baseline -m enterprise
@@ -125,4 +129,24 @@ You have to tell the `search subcommand` which matrix it is going to work with b
 # All terms must be enclosed by double-quotes
 #
 $> mitre-assistant search -m enterprise -t "t1021"
+
+
+# Output
++--------+-----------+------------------+-------+-----------------+---------------+---------------------------------+
+| STATUS | PLATFORMS | TACTIC           | TID   | TECHNIQUE       | SUBTECHNIQUES | DATA SOURCES                    |
++--------+-----------+------------------+-------+-----------------+---------------+---------------------------------+
+| Active | linux     | lateral-movement | T1021 | Remote Services | T1021.001     | windows-registry                |
+|        | macos     |                  |       |                 | T1021.002     | windows-event-logs              |
+|        | windows   |                  |       |                 | T1021.003     | process-use-of-network          |
+|        |           |                  |       |                 | T1021.004     | process-monitoring              |
+|        |           |                  |       |                 | T1021.005     | process-command-line-parameters |
+|        |           |                  |       |                 | T1021.006     | powershell-logs                 |
+|        |           |                  |       |                 |               | packet-capture                  |
+|        |           |                  |       |                 |               | network-protocol-analysis       |
+|        |           |                  |       |                 |               | netflow-enclave-netflow         |
+|        |           |                  |       |                 |               | file-monitoring                 |
+|        |           |                  |       |                 |               | dll-monitoring                  |
+|        |           |                  |       |                 |               | authentication-logs             |
+|        |           |                  |       |                 |               | api-monitoring                  |
++--------+-----------+------------------+-------+-----------------+---------------+---------------------------------+
 ```
