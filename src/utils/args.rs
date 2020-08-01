@@ -20,7 +20,7 @@ use searcher::MatrixSearcher;
 /// Represent global variables used throughout this source file.
 static _VERSION: &str = "v.0.0.1"; 
 static _AUTHOR: &str = "carlos diaz | @dfirence\n\n";
-static _ABOUT: &str = "Mitre Attack Assistant";
+static _ABOUT: &str = "Mitre Attack Assistant\n\n\tA more useful utility for the ATT&CK Matrix";
 
 
 /// # ArgumentsParser
@@ -50,7 +50,7 @@ impl ArgumentsParser<'_> {
                             SubCommand::with_name("download")
                                        .author(_AUTHOR)
                                        .version(_VERSION)
-                                       .about("A more useful utility for the ATT&CK Matrix")
+                                       .about("Download a Matrix From The Mitre CTI Repo")
                                        .arg(
                                             Arg::with_name("matrix")
                                                 .short("m")

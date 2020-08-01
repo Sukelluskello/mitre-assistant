@@ -15,13 +15,22 @@ A custom, more useful, and cooler MITRE-CTI-CLIENT.
 - [x] Linux
 - [x] MacOS
 - [ ] Windows
+- [ ] Data Interchange Format
+   - [ ] CSV
+   - [ ] JSON
+
 <br/>
 
 ## Why are you doing this?
 I work in the Security industry for a provider, my work hinges a lot on this resource from The Mitre Corporation.  At some point, if you are like me, you will observe the poor and ridiculous amount of time that is needed to create custom datasets from that resource and collaborate across teams to get into serious work.  This helps me not waste time on silly things - i.e., clicking on some website, or asking important questions so I can incorporate the matrix into some form of tactical plans to defend my network, or support new strategies while working with others.
 
+<br/>
+
 ## Why not use other existing community tools for this?
 I have seen them, used them, and appreciate those that are writing their own. In the end, I am not gonna wait for anyone to do things the way I need them.
+
+<br/>
+<br/>
 
 # **Usage**
 
@@ -40,10 +49,12 @@ This is a modular tool. The main concept of using this tool is:
        Download A Matrix         Baseline The Matrix        Search - Ask your question
 ```
 <br/>
-
-Building from the above concept, let's get into using this bad-boy.
+<br/>
 
 ## **Help Menu**
+Building from the above concept, let's get into using this bad-boy.
+
+<br/>
 
 ```bash
 cdiaz@[mitre-assistant]
@@ -56,6 +67,8 @@ carlos diaz | @dfirence
 
 Mitre Attack Assistant
 
+        A more useful utility for the ATT&CK Matrix
+
 USAGE:
     mitre-assistant [SUBCOMMAND]
 
@@ -65,7 +78,7 @@ FLAGS:
 
 SUBCOMMANDS:
     baseline    Parse a Matrix into comprehensive insights
-    download    A more useful utility for the ATT&CK Matrix
+    download    Download a Matrix From The Mitre CTI Repo
     help        Prints this message or the help of the given subcommand(s)
     search      Search The Baseline
 ```
