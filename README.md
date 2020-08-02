@@ -333,7 +333,7 @@ $> mitre-assistant -m enterprise -t "platforms"
 ## *Searching For Edge Cases:  Techniques Without a Datasource*
 This is the edge-case that drove to create this tool for myself.  I found someone's tool incorrectly parsed the matrix and I needed to report to my management the plan of action based on data sources.  This is very important for practitioners who leverage the matrix for real world tactical operations.
 
-Reference this example:  [NO_DATA_SOURCE_SAMPLE](https://github.com/dfirence/mitre-assistant/issues/1)
+Reference this example:  [NO_DATA_SOURCE_SAMPLE](https://user-images.githubusercontent.com/11415591/88487153-a58c7380-cf50-11ea-8547-e03a6b7a9185.png)
 
 Use the keyword `nodatasources` to obtain a list of active techniques that may not have an assigned datasource by Mitre.
 
@@ -363,3 +363,13 @@ These experiments were very useful to me a couple of years ago as I started lear
 <br/>
 
 ## TODO: Awesome Stuff here
+
+
+<br/>
+<br/>
+<br/>
+
+# Kudos - RUSTACEANS
+Many super kudos, to the amazing RUST Community, for their warm embrace of everyone that wants the journey.  Seemingly, to all of the super creators of loved tools from python being ported into rust.
+
+## TODO - Thank Crates Contributions
