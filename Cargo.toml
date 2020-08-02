@@ -6,7 +6,7 @@ edition = "2018"
 description = "A more flexible, useful and cooler Mitre ATT&CK Client"
 readme = "README.md"
 repository = "https://github.com/dfirence/mitre-assistant"
-keywords = ["mitre-attack-client", "mitre-assistant", "attack-framework-client", "mitre-cti-stix-client", "att&ck"]
+keywords = ["mitre-attack-client", "mitre-assistant", "attack-framework-client", "mitre-cti-stix-client", "mitre-attack"]
 categories = ["command-line-utilities"]
 license = "MIT"
 

@@ -26,6 +26,18 @@ A custom, more useful, and much cooler MITRE-CTI-CLIENT.
 <br/>
 <br/>
 
+# Getting Started
+You got 3 ways to start using this `bad-boy`:
+
+**1.** You can go to the releases section, download the pre-compiled binary for your os. Note:  I only provide Debian on Linux
+
+**2.** If you already have rust stable toolchain installed, then simply use `cargo install mitre-assistant`
+
+**3.** Or, if you just love building from source, follow the instructions in the `build from source section` below.
+
+<br/>
+<br/>
+
 ## Releases - Binaries
 Head over to the [releases section](https://github.com/dfirence/mitre-assistant/releases/) and download the binary for your OS.  However, note, I am only supporting binaries for **64 bit versions** of:
 
