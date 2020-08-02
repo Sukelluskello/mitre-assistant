@@ -145,7 +145,7 @@ impl EnterpriseMatrixSearcher {
     ///
     ///
     /// ## **Query Functions Are Private**
-    /// All of the functions are private functions that are not exposed to the end-user.  They are only accessible
+    /// All of the functions are **private functions** that are not exposed to the end-user.  They are only accessible
     /// from the module itself, and specifically, when invoked by the `self.search()` method.
     ///
     fn enterprise_all_techniques(&self) -> String
