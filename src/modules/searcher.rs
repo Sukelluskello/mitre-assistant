@@ -43,10 +43,19 @@ impl EnterpriseMatrixSearcher {
     {
         let mut _results: Vec<String> = vec![];
         let mut _valid: Vec<(&str, usize)> = vec![];
-        let mut _wants_revoked: bool = false;
-        let mut _wants_stats = false;
-        let mut _wants_nosub = false;
         let _scanner = RegexPatternManager::load_search_term_patterns();
+        // Special Flags
+        // Easier to search this way without flooding the user with parameters 
+        let mut _wants_stats: bool = false;
+        let mut _wants_nosub: bool = false;
+        let mut _wants_revoked: bool = false;
+        let mut _wants_platforms: bool = false;
+        let mut _wants_datasources: bool = false;
+        let mut _wants_all_techniques: bool = false;
+        let mut _wants_all_subtechniques: bool = false;
+        // Parse the search term explicitly
+        // We are not using partial matches on search term keywords
+        // We keep simple incrementing usize by search term
         if search_term.to_lowercase().as_str() == "revoked" {
             _valid.push((search_term, 3usize));
             _wants_revoked = true;
@@ -61,12 +70,15 @@ impl EnterpriseMatrixSearcher {
         }
         else if search_term.to_lowercase().as_str() == "techniques" {
             _valid.push((search_term, 6usize)); //TODO
+            _wants_all_techniques = true;
         }
         else if search_term.to_lowercase().as_str() == "subtechniques" {
             _valid.push((search_term, 7usize)); //TODO
+            _wants_all_subtechniques = true;
         }
         else if search_term.to_lowercase().as_str() == "datasources" {
             _valid.push((search_term, 8usize)); //TODO
+            _wants_datasources = true;
         }
         else if search_term.to_lowercase().as_str() == "platforms" {
             _valid.push((search_term, 10usize));    //TODO
@@ -103,7 +115,7 @@ impl EnterpriseMatrixSearcher {
                     _results.push(self.enterprise_by_nosubtechniques());
                 }
             }
-            _results.sort();
+            //_results.sort();
             if _wants_revoked {
                 self.render_enterprise_revoked_table(&_results);
             } else if _wants_stats {
