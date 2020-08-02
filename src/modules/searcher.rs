@@ -46,12 +46,12 @@ impl EnterpriseMatrixSearcher {
         let _scanner = RegexPatternManager::load_search_term_patterns();
         // Special Flags
         // Easier to search this way without flooding the user with parameters 
-        let mut _wants_stats: bool = false;
-        let mut _wants_nosub: bool = false;
-        let mut _wants_revoked: bool = false;
+        let mut _wants_stats: bool = false;             // Returns The Stats Key
+        let mut _wants_nosub: bool = false;             // Returns Techniques That Don’t Have Subtechniques
+        let mut _wants_revoked: bool = false;           // Returns Techniques Revoked By Mitre
         // Parse the search term explicitly
-        // We are not using partial matches on search term keywords
-        // We keep a simple incrementing usize by search term
+        //      We are not using partial matches on search term keywords
+        //      We keep a simple incrementing usize by search term
         if !search_term.contains(“,”) {
             if _scanner.pattern.is_match(search_term) {
                 let _idx: Vec<usize> = _scanner.pattern.matches(search_term).into_iter().collect();
@@ -91,8 +91,14 @@ impl EnterpriseMatrixSearcher {
         }
         else if search_term.to_lowercase().as_str() == "platforms" {
             _valid.push((search_term, 9usize));    //TODO
-        }        
-
+        }
+        // Query
+        // —————
+        // Once a full match is valid and a pattern is assigned
+        // let’s redirect the pattern to the relevant query function
+        //      Notice:     Based on the pattern usize, a specific function is called.
+        //                  Any query function must return a Stringified Vector from
+        //                  the `EnterpriseMatrixBreakdown` struct.
         if _valid.len() >= 1 {
             for (_term, _pattern) in _valid.iter() {
                 if _pattern == &0usize {
@@ -114,6 +120,9 @@ impl EnterpriseMatrixSearcher {
                 }
             }
             //_results.sort();
+            
+            // Render Query Results
+            // ———————————————————-
             if _wants_revoked {
                 self.render_enterprise_revoked_table(&_results);
             } else if _wants_stats {
