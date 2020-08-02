@@ -18,7 +18,58 @@ A custom, more useful, and much cooler MITRE-CTI-CLIENT.
 - [ ] Data Interchange Format
    - [ ] CSV
    - [ ] JSON
+- [ ] Exports
+   - [ ] CSV
+   - [ ] JSON
+   - [ ] Rich Web
 
+<br/>
+<br/>
+
+## Releases - Binaries
+Head over to the [releases section](https://github.com/dfirence/mitre-assistant/releases/) and download the binary for your OS.  However, note, I am only supporting binaries for **64 bit versions** of:
+
+* MacOS
+* Debian
+* Windows
+
+<br/>
+
+## Build From Source
+If you use a different Linux distro, install the rust toolchain, preferably the stable channel, and follow these steps:
+
+### Step 1 - Clone this repo
+
+```bash
+$> git clone https://github.com/dfirence/mitre-assistant.git
+```
+
+<br/>
+
+### Step 2 - Navigate into the repo
+
+```bash
+$> cd mitre-assistant
+```
+
+<br/>
+
+### Step 3 - Build/Compile
+
+```bash
+$> cargo build --release
+```
+<br/>
+
+### Step 4 - Move your fresh binary to a system path
+
+In this step, if you wanna call the executable from anywhere, add it to your system path or executable path - i.e., /usr/bin
+```bash
+$> sudo mv /target/release/mitre-assistant /usr/bin
+```
+<br/>
+
+<br/>
 <br/>
 
 ## Why are you doing this?
