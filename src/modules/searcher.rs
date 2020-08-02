@@ -134,6 +134,20 @@ impl EnterpriseMatrixSearcher {
             println!(r#"[ "Results": {}, "SearchTerm": {} ]"#, "None Found", search_term);
         }
     }
+    /// # **Query Functions**
+    /// All of the functions from this source code section are for the queries provided by
+    /// the end-user.
+    ///
+    /// Query functions must return a Stringified version of a JSON object - i.e., Vec<EnterpriseTechnique>
+    ///
+    /// The searcher uses the `serde_json::to_string` method for the conversion of objects to provide the
+    /// Stringified version of the JSON object.
+    ///
+    ///
+    /// ## **Query Functions Are Private**
+    /// All of the functions are private functions that are not exposed to the end-user.  They are only accessible
+    /// from the module itself, and specifically, when invoked by the `self.search()` method.
+    ///
     fn enterprise_all_techniques(&self) -> String
     {
         //let mut _results = vec![];
