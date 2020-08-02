@@ -45,7 +45,8 @@ impl EnterpriseMatrixSearcher {
         let mut _valid: Vec<(&str, usize)> = vec![];
         let _scanner = RegexPatternManager::load_search_term_patterns();
         // Special Flags
-        // Easier to search this way without flooding the user with parameters 
+        //      Easier to search this way without flooding the user with parameters
+        //      These flags are commonly placed in both the query and render functions 
         let mut _wants_stats: bool = false;             // Returns The Stats Key
         let mut _wants_nosub: bool = false;             // Returns Techniques That Don't Have Subtechniques
         let mut _wants_revoked: bool = false;           // Returns Techniques Revoked By Mitre
@@ -80,7 +81,7 @@ impl EnterpriseMatrixSearcher {
             _valid.push((search_term, 9usize));     //TODO
             _wants_platforms = true;
         }
-        else if search_term.to_lowercase().as_str() == "nodatasource" {
+        else if search_term.to_lowercase().as_str() == "nodatasources" {
             _valid.push((search_term, 10usize));    // TODO
         }
         else if !search_term.contains(",") {
@@ -398,46 +399,188 @@ impl EnterpriseMatrixSearcher {
         let mut _table = Table::new();
         _table.add_row(Row::new(vec![
             Cell::new("CATEGORY"),
-            Cell::new("TOTALS")
+            Cell::new("COUNTS")
         ]));
         let _item = &results[0];
         let _json: EnterpriseMatrixStatistics = serde_json::from_str(_item.as_str()).expect("(?) Error:  Render Table Deserialization For Stats");
         _table.add_row(
             Row::new(vec![
-                Cell::new("Active Techniques"),
-                Cell::new(_json.count_active_techniques.to_string().as_str()),
+                Cell::new("Total - Revoked Techniques"),
+                Cell::new(_json.count_revoked_techniques.to_string().as_str()),
+            ])
+        );
+        _table.add_empty_row();           
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Total - Active Techniques"),
+                Cell::new(_json.count_active_total_techniques.to_string().as_str()),
+        ]));
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Total - Active Subtechniques"),
+                Cell::new(_json.count_active_total_subtechniques.to_string().as_str()),
+        ]));
+        _table.add_empty_row();
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Uniq - Active Techniques"),
+                Cell::new(_json.count_active_uniq_techniques.to_string().as_str()),
             ])                                                                                                                                
         );
         _table.add_row(
             Row::new(vec![
-                Cell::new("Active Subtechniques"),
-                Cell::new(_json.count_active_subtechniques.to_string().as_str())
+                Cell::new("Uniq - Active Subtechniques"),
+                Cell::new(_json.count_active_uniq_subtechniques.to_string().as_str())
             ])
         );
+        _table.add_empty_row();
         _table.add_row(
             Row::new(vec![
-                Cell::new("Revoked Techniques"),
-                Cell::new(_json.count_revoked_techniques.to_string().as_str()),
-            ])
-        );
-        _table.add_row(
-            Row::new(vec![
-                Cell::new("Active Platforms"),
+                Cell::new("Uniq - Active Platforms"),
                 Cell::new(_json.count_platforms.to_string().as_str()),
             ])
         );
         _table.add_row(
             Row::new(vec![
-                Cell::new("Active Tactics"),
+                Cell::new("Uniq - Active Tactics"),
                 Cell::new(_json.count_tactics.to_string().as_str()),
             ])
         );
         _table.add_row(
             Row::new(vec![
-                Cell::new("Active Data Sources"),
+                Cell::new("Uniq - Active Data Sources"),
                 Cell::new(_json.count_datasources.to_string().as_str()),
             ])
         );
+        _table.add_empty_row();
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Total - Techniques By Platform").style_spec("FY"),
+                Cell::new(""),
+            ])
+        );        
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("AWS"),
+                Cell::new(_json.count_techniques_aws.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("AZURE"),
+                Cell::new(_json.count_techniques_azure.to_string().as_str()),
+            ])
+        ); 
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("AZURE-AD"),
+                Cell::new(_json.count_techniques_azure_ad.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("GCP"),
+                Cell::new(_json.count_techniques_gcp.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("LINUX"),
+                Cell::new(_json.count_techniques_linux.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("MAC-OS"),
+                Cell::new(_json.count_techniques_macos.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("OFFICE-365"),
+                Cell::new(_json.count_techniques_office365.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("SAAS"),
+                Cell::new(_json.count_techniques_saas.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("WINDOWS"),
+                Cell::new(_json.count_techniques_windows.to_string().as_str()),
+            ])
+        );                                                        
+        _table.add_empty_row();
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Total - Subtechniques By Platform").style_spec("FY"),
+                Cell::new(""),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("AWS"),
+                Cell::new(_json.count_subtechniques_aws.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("AZURE"),
+                Cell::new(_json.count_subtechniques_azure.to_string().as_str()),
+            ])
+        ); 
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("AZURE-AD"),
+                Cell::new(_json.count_subtechniques_azure_ad.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("GCP"),
+                Cell::new(_json.count_subtechniques_gcp.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("LINUX"),
+                Cell::new(_json.count_subtechniques_linux.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("MAC-OS"),
+                Cell::new(_json.count_subtechniques_macos.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("OFFICE-365"),
+                Cell::new(_json.count_subtechniques_office365.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("SAAS"),
+                Cell::new(_json.count_subtechniques_saas.to_string().as_str()),
+            ])
+        );
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("WINDOWS"),
+                Cell::new(_json.count_subtechniques_windows.to_string().as_str()),
+            ])
+        );                                                              
+        _table.add_empty_row();
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("General - Pending Analysis").style_spec("FY"),
+                Cell::new(""),
+            ])
+        );        
         _table.add_row(
             Row::new(vec![
                 Cell::new("Records For Malware"),
