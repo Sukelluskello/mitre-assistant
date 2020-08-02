@@ -47,28 +47,12 @@ impl EnterpriseMatrixSearcher {
         // Special Flags
         // Easier to search this way without flooding the user with parameters 
         let mut _wants_stats: bool = false;             // Returns The Stats Key
-        let mut _wants_nosub: bool = false;             // Returns Techniques That Don’t Have Subtechniques
+        let mut _wants_nosub: bool = false;             // Returns Techniques That Don't Have Subtechniques
         let mut _wants_revoked: bool = false;           // Returns Techniques Revoked By Mitre
         // Parse the search term explicitly
         //      We are not using partial matches on search term keywords
         //      We keep a simple incrementing usize by search term
-        if !search_term.contains(“,”) {
-            if _scanner.pattern.is_match(search_term) {
-                let _idx: Vec<usize> = _scanner.pattern.matches(search_term).into_iter().collect();
-                _valid.push((search_term, _idx[0]));  // Search Term 1usize
-            }
-        }
-        else if search_term.contains(“,”) {
-            let _terms: Vec<&str> = search_term.split(‘,’).collect();
-            _valid = _terms.iter()
-                        .filter(|_x| _scanner.pattern.is_match(_x))
-                        .map(|_x| {
-                            let _idx: Vec<_> = _scanner.pattern.matches(_x).into_iter().collect();
-                            (*_x, _idx[0]) // Search Term 2usize
-                        })
-                        .collect();
-        }
-        else if search_term.to_lowercase().as_str() == "revoked" {
+        if search_term.to_lowercase().as_str() == "revoked" {
             _valid.push((search_term, 3usize));
             _wants_revoked = true;
         }
@@ -92,10 +76,26 @@ impl EnterpriseMatrixSearcher {
         else if search_term.to_lowercase().as_str() == "platforms" {
             _valid.push((search_term, 9usize));    //TODO
         }
+        else if !search_term.contains(",") {
+            if _scanner.pattern.is_match(search_term) {
+                let _idx: Vec<usize> = _scanner.pattern.matches(search_term).into_iter().collect();
+                _valid.push((search_term, _idx[0]));  // Search Term 1usize
+            }
+        }
+        else if search_term.contains(",") {
+            let _terms: Vec<&str> = search_term.split(',').collect();
+            _valid = _terms.iter()
+                        .filter(|_x| _scanner.pattern.is_match(_x))
+                        .map(|_x| {
+                            let _idx: Vec<_> = _scanner.pattern.matches(_x).into_iter().collect();
+                            (*_x, _idx[0]) // Search Term 2usize
+                        })
+                        .collect();
+        }        
         // Query
         // —————
         // Once a full match is valid and a pattern is assigned
-        // let’s redirect the pattern to the relevant query function
+        // let's redirect the pattern to the relevant query function
         //      Notice:     Based on the pattern usize, a specific function is called.
         //                  Any query function must return a Stringified Vector from
         //                  the `EnterpriseMatrixBreakdown` struct.
@@ -152,12 +152,12 @@ impl EnterpriseMatrixSearcher {
     {
         //let mut _results = vec![];
         let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
-        serde_json::to_string(&_json.breakdown_techniques.platforms).expect(“(?) Error: Unable To Deserialize All Techniques”);
+        serde_json::to_string(&_json.breakdown_techniques.platforms).expect("(?) Error: Unable To Deserialize All Techniques")
     }
     fn enterprise_all_subtechniques(&self) -> String
     {
         let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
-        serde_json::to_string(&_json.breakdown_subtechniques.platforms).expect(“(?) Error: Unable To Deserialize All Techniques”);
+        serde_json::to_string(&_json.breakdown_subtechniques.platforms).expect("(?) Error: Unable To Deserialize All Techniques")
     }
     fn enterprise_by_name(&self, technique_name: &str) -> String
     {
@@ -173,7 +173,7 @@ impl EnterpriseMatrixSearcher {
     fn enterprise_by_id(&self, technique_id: &str, _wants_subtechniques: bool) -> String
     {
         let mut _results = vec![];
-        let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
+        let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).expect("HERE");
         for _item in _json.breakdown_techniques.platforms.iter() {
             if _item.tid.to_lowercase().as_str() == technique_id.to_lowercase().as_str() {
                 if _wants_subtechniques {
