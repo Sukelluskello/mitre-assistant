@@ -49,6 +49,8 @@ impl EnterpriseMatrixSearcher {
         let mut _wants_stats: bool = false;             // Returns The Stats Key
         let mut _wants_nosub: bool = false;             // Returns Techniques That Don't Have Subtechniques
         let mut _wants_revoked: bool = false;           // Returns Techniques Revoked By Mitre
+        let mut _wants_platforms: bool = false;         // Returns The Platforms Key
+        let mut _wants_datasources: bool = false;       // Returns The Data Sources Key
         // Parse the search term explicitly
         //      We are not using partial matches on search term keywords
         //      We keep a simple incrementing usize by search term
@@ -68,13 +70,18 @@ impl EnterpriseMatrixSearcher {
             _valid.push((search_term, 6usize)); //TODO
         }
         else if search_term.to_lowercase().as_str() == "subtechniques" {
-            _valid.push((search_term, 7usize)); //TODO
+            _valid.push((search_term, 7usize));     //TODO
         }
         else if search_term.to_lowercase().as_str() == "datasources" {
-            _valid.push((search_term, 8usize)); //TODO
+            _valid.push((search_term, 8usize));     //TODO
+            _wants_datasources = true;
         }
         else if search_term.to_lowercase().as_str() == "platforms" {
-            _valid.push((search_term, 9usize));    //TODO
+            _valid.push((search_term, 9usize));     //TODO
+            _wants_platforms = true;
+        }
+        else if search_term.to_lowercase().as_str() == "nodatasource" {
+            _valid.push((search_term, 10usize));    // TODO
         }
         else if !search_term.contains(",") {
             if _scanner.pattern.is_match(search_term) {
@@ -117,16 +124,30 @@ impl EnterpriseMatrixSearcher {
                     _results.push(self.enterprise_all_techniques());
                 } else if _pattern == &7usize {
                     _results.push(self.enterprise_all_subtechniques());
+                } else if _pattern == &8usize {
+                    _results.push(self.enterprise_all_datasources());
+                } else if _pattern == &9usize {
+                    _results.push(self.enterprise_all_platforms());
+                } else if _pattern == &10usize {
+                    _results.push(self.enterprise_by_no_datasources());
                 }
             }
-            //_results.sort();
-            
             // Render Query Results
-            // ———————————————————-
+            // --------------------
+            // Upon getting search query results, apply a renderer to present results.
+            // By default, pretty tables are used to render results.
+            //
+            //      Note:   Transforming results into CSV, JSON should be done within
+            //              the renderer functions.
+            //    
             if _wants_revoked {
                 self.render_enterprise_revoked_table(&_results);
             } else if _wants_stats {
                 self.render_enterprise_stats(&_results);
+            } else if _wants_datasources {
+                self.render_enterprise_datasources_table(&_results);
+            } else if _wants_platforms {
+                self.render_enterprise_platforms_table(&_results);
             } else {
                 self.render_enterprise_table(&_results);
             }
@@ -159,6 +180,32 @@ impl EnterpriseMatrixSearcher {
         let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
         serde_json::to_string(&_json.breakdown_subtechniques.platforms).expect("(?) Error: Unable To Deserialize All Techniques")
     }
+    fn enterprise_all_platforms(&self) -> String
+    {
+        let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
+        serde_json::to_string(&_json.platforms).expect("(?) Error: Unable To Deserialize All Platforms")
+    }
+    fn enterprise_all_datasources(&self) -> String
+    {
+        let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
+        serde_json::to_string(&_json.datasources).expect("(?) Error: Unable To Deserialize All Datasources")
+    }
+    fn enterprise_by_no_datasources(&self) -> String
+    {
+        let mut _results = vec![];
+        let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).expect("(?) Error: Unable to Deserialize By No Datasources");
+        for _item in _json.breakdown_techniques.platforms.iter() {
+            if _item.datasources.as_str() == "None" {
+                _results.push(_item);
+            }
+        }
+        for _item in _json.breakdown_subtechniques.platforms.iter() {
+            if _item.datasources.as_str() == "None" {
+                _results.push(_item);
+            }
+        }
+        serde_json::to_string(&_results).expect("(?) Error: Unable To Serialize By No Datasources")
+    }
     fn enterprise_by_name(&self, technique_name: &str) -> String
     {
         let mut _results = vec![];
@@ -187,6 +234,16 @@ impl EnterpriseMatrixSearcher {
                     }
                 } else {
                     _results.push(_item);
+                }
+            }
+        }
+        if _results.len() == 0usize {
+                // edge case -- Thank you Mitre for making this difficult
+            if _wants_subtechniques {
+                for _subtechnique in _json.breakdown_subtechniques.platforms.iter() {
+                    if _subtechnique.tid.contains(technique_id.to_uppercase().as_str()) {
+                        _results.push(_subtechnique);
+                    }
                 }
             }
         }
@@ -227,6 +284,42 @@ impl EnterpriseMatrixSearcher {
         }
         serde_json::to_string_pretty(&_results).expect("(?) Error: Unable To Deserialize Search Results By HAS_NO_SUBTECHNIQUES")
     }
+    /// # **Rendering Functions**
+    /// This section of the source code is for functions that render queery results
+    /// or render information to the end-user.
+    ///
+    fn render_enterprise_platforms_table(&self, results: &Vec<String>)
+    {
+        let mut _table = Table::new();
+        _table.add_row(Row::new(vec![
+            Cell::new("IDX").style_spec("FW"),
+            Cell::new("PLATFORMS").style_spec("FW"),
+        ]));
+        let _json: Vec<String> = serde_json::from_str(results[0].as_str()).expect("(?) Error: Unable To Deserialize Search Results By DataSources");
+        for (_idx, _row) in _json.iter().enumerate() {
+            _table.add_row(Row::new(vec![
+                Cell::new((_idx + 1).to_string().as_str()).style_spec("FY"),
+                Cell::new(_row.as_str()).style_spec("FW"),
+            ]));
+        }
+        _table.printstd();
+    } 
+    fn render_enterprise_datasources_table(&self, results: &Vec<String>)
+    {
+        let mut _table = Table::new();
+        _table.add_row(Row::new(vec![
+            Cell::new("IDX").style_spec("FW"),
+            Cell::new("DATASOURCE").style_spec("FW"),
+        ]));
+        let _json: Vec<String> = serde_json::from_str(results[0].as_str()).expect("(?) Error: Unable To Deserialize Search Results By DataSources");
+        for (_idx, _row) in _json.iter().enumerate() {
+            _table.add_row(Row::new(vec![
+                Cell::new((_idx + 1).to_string().as_str()).style_spec("FY"),
+                Cell::new(_row.as_str()).style_spec("FW"),
+            ]));
+        }
+        _table.printstd();
+    } 
     fn render_enterprise_table(&self, results: &Vec<String>)
     {
         let mut _table = Table::new();

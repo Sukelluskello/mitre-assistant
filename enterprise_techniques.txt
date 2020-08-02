@@ -1,0 +1,1136 @@
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| STATUS | PLATFORMS  | TACTIC               | TID   | TECHNIQUE                                   | SUBTECHNIQUES | DATA SOURCES                       |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | command-and-control  | T1001 | Data Obfuscation                            | T1001.001     | packet-capture                     |
+|        | macos      |                      |       |                                             | T1001.002     | process-use-of-network             |
+|        | windows    |                      |       |                                             | T1001.003     | process-monitoring                 |
+|        |            |                      |       |                                             |               | network-protocol-analysis          |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | credential-access    | T1003 | OS Credential Dumping                       | T1003.001     | api-monitoring                     |
+|        | linux      |                      |       |                                             | T1003.002     | process-monitoring                 |
+|        | macos      |                      |       |                                             | T1003.003     | powershell-logs                    |
+|        |            |                      |       |                                             | T1003.004     | process-command-line-parameters    |
+|        |            |                      |       |                                             | T1003.005     |                                    |
+|        |            |                      |       |                                             | T1003.006     |                                    |
+|        |            |                      |       |                                             | T1003.007     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | collection           | T1005 | Data from Local System                      | n_a           | file-monitoring                    |
+|        | macos      |                      |       |                                             |               | process-monitoring                 |
+|        | windows    |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | defense-evasion      | T1006 | Direct Volume Access                        | n_a           | api-monitoring                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | discovery            | T1007 | System Service Discovery                    | n_a           | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | command-and-control  | T1008 | Fallback Channels                           | n_a           | malware-reverse-engineering        |
+|        | windows    |                      |       |                                             |               | netflow-enclave-netflow            |
+|        | macos      |                      |       |                                             |               | packet-capture                     |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-use-of-network             |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | macos      | discovery            | T1010 | Application Window Discovery                | n_a           | api-monitoring                     |
+|        | windows    |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | exfiltration         | T1011 | Exfiltration Over Other Network Medium      | T1011.001     | user-interface                     |
+|        | macos      |                      |       |                                             |               | process-monitoring                 |
+|        | windows    |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | discovery            | T1012 | Query Registry                              | n_a           | windows-registry                   |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | defense-evasion      | T1014 | Rootkit                                     | n_a           | bios                               |
+|        | macos      |                      |       |                                             |               | mbr                                |
+|        | windows    |                      |       |                                             |               | system-calls                       |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | discovery            | T1016 | System Network Configuration Discovery      | n_a           | process-monitoring                 |
+|        | macos      |                      |       |                                             |               | process-command-line-parameters    |
+|        | windows    |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | discovery            | T1018 | Remote System Discovery                     | n_a           | azure-activity-logs                |
+|        | macos      |                      |       |                                             |               | stackdriver-logs                   |
+|        | windows    |                      |       |                                             |               | aws-cloudtrail-logs                |
+|        | gcp        |                      |       |                                             |               | network-protocol-analysis          |
+|        | azure      |                      |       |                                             |               | process-monitoring                 |
+|        | aws        |                      |       |                                             |               | process-use-of-network             |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | exfiltration         | T1020 | Automated Exfiltration                      | n_a           | file-monitoring                    |
+|        | macos      |                      |       |                                             |               | process-monitoring                 |
+|        | windows    |                      |       |                                             |               | process-use-of-network             |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | lateral-movement     | T1021 | Remote Services                             | T1021.001     | windows-registry                   |
+|        | macos      |                      |       |                                             | T1021.002     | windows-event-logs                 |
+|        | windows    |                      |       |                                             | T1021.003     | process-use-of-network             |
+|        |            |                      |       |                                             | T1021.004     | process-monitoring                 |
+|        |            |                      |       |                                             | T1021.005     | process-command-line-parameters    |
+|        |            |                      |       |                                             | T1021.006     | powershell-logs                    |
+|        |            |                      |       |                                             |               | packet-capture                     |
+|        |            |                      |       |                                             |               | network-protocol-analysis          |
+|        |            |                      |       |                                             |               | netflow-enclave-netflow            |
+|        |            |                      |       |                                             |               | file-monitoring                    |
+|        |            |                      |       |                                             |               | dll-monitoring                     |
+|        |            |                      |       |                                             |               | authentication-logs                |
+|        |            |                      |       |                                             |               | api-monitoring                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | collection           | T1025 | Data from Removable Media                   | n_a           | file-monitoring                    |
+|        | macos      |                      |       |                                             |               | process-monitoring                 |
+|        | windows    |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | command-and-control  | T1026 | Multiband Communication                     | n_a           | packet-capture                     |
+|        | macos      |                      |       |                                             |               | netflow-enclave-netflow            |
+|        | windows    |                      |       |                                             |               | process-use-of-network             |
+|        |            |                      |       |                                             |               | malware-reverse-engineering        |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | defense-evasion      | T1027 | Obfuscated Files or Information             | T1027.001     | network-protocol-analysis          |
+|        | macos      |                      |       |                                             | T1027.002     | process-use-of-network             |
+|        | windows    |                      |       |                                             | T1027.003     | file-monitoring                    |
+|        |            |                      |       |                                             | T1027.004     | malware-reverse-engineering        |
+|        |            |                      |       |                                             | T1027.005     | binary-file-metadata               |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | environment-variable               |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | windows-event-logs                 |
+|        |            |                      |       |                                             |               | network-intrusion-detection-system |
+|        |            |                      |       |                                             |               | email-gateway                      |
+|        |            |                      |       |                                             |               | ssl-tls-inspection                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | exfiltration         | T1029 | Scheduled Transfer                          | n_a           | netflow-enclave-netflow            |
+|        | macos      |                      |       |                                             |               | process-use-of-network             |
+|        | windows    |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | exfiltration         | T1030 | Data Transfer Size Limits                   | n_a           | packet-capture                     |
+|        | macos      |                      |       |                                             |               | netflow-enclave-netflow            |
+|        | windows    |                      |       |                                             |               | process-use-of-network             |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | discovery            | T1033 | System Owner/User Discovery                 | n_a           | file-monitoring                    |
+|        | macos      |                      |       |                                             |               | process-monitoring                 |
+|        | windows    |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | defense-evasion      | T1036 | Masquerading                                | T1036.001     | process-command-line-parameters    |
+|        | macos      |                      |       |                                             | T1036.002     | file-monitoring                    |
+|        | windows    |                      |       |                                             | T1036.003     | process-monitoring                 |
+|        |            |                      |       |                                             | T1036.004     | binary-file-metadata               |
+|        |            |                      |       |                                             | T1036.005     |                                    |
+|        |            |                      |       |                                             | T1036.006     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | macos      | persistence          | T1037 | Boot or Logon Initialization Scripts        | T1037.001     | file-monitoring                    |
+|        | windows    |                      |       |                                             | T1037.002     | process-monitoring                 |
+|        |            |                      |       |                                             | T1037.003     |                                    |
+|        |            |                      |       |                                             | T1037.004     |                                    |
+|        |            |                      |       |                                             | T1037.005     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | macos      | privilege-escalation | T1037 | Boot or Logon Initialization Scripts        | T1037.001     | file-monitoring                    |
+|        | windows    |                      |       |                                             | T1037.002     | process-monitoring                 |
+|        |            |                      |       |                                             | T1037.003     |                                    |
+|        |            |                      |       |                                             | T1037.004     |                                    |
+|        |            |                      |       |                                             | T1037.005     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | collection           | T1039 | Data from Network Shared Drive              | n_a           | file-monitoring                    |
+|        | macos      |                      |       |                                             |               | process-monitoring                 |
+|        | windows    |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | credential-access    | T1040 | Network Sniffing                            | n_a           | network-device-logs                |
+|        | macos      |                      |       |                                             |               | host-network-interface             |
+|        | windows    |                      |       |                                             |               | netflow-enclave-netflow            |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | discovery            | T1040 | Network Sniffing                            | n_a           | network-device-logs                |
+|        | macos      |                      |       |                                             |               | host-network-interface             |
+|        | windows    |                      |       |                                             |               | netflow-enclave-netflow            |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | exfiltration         | T1041 | Exfiltration Over C2 Channel                | n_a           | packet-capture                     |
+|        | macos      |                      |       |                                             |               | process-use-of-network             |
+|        | windows    |                      |       |                                             |               | netflow-enclave-netflow            |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | discovery            | T1046 | Network Service Scanning                    | n_a           | netflow-enclave-netflow            |
+|        | windows    |                      |       |                                             |               | network-protocol-analysis          |
+|        | macos      |                      |       |                                             |               | packet-capture                     |
+|        | aws        |                      |       |                                             |               | process-command-line-parameters    |
+|        | gcp        |                      |       |                                             |               | process-use-of-network             |
+|        | azure      |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | execution            | T1047 | Windows Management Instrumentation          | n_a           | authentication-logs                |
+|        |            |                      |       |                                             |               | netflow-enclave-netflow            |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | exfiltration         | T1048 | Exfiltration Over Alternative Protocol      | T1048.001     | process-monitoring                 |
+|        | macos      |                      |       |                                             | T1048.002     | process-use-of-network             |
+|        | windows    |                      |       |                                             | T1048.003     | packet-capture                     |
+|        |            |                      |       |                                             |               | netflow-enclave-netflow            |
+|        |            |                      |       |                                             |               | network-protocol-analysis          |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | discovery            | T1049 | System Network Connections Discovery        | n_a           | process-monitoring                 |
+|        | macos      |                      |       |                                             |               | process-command-line-parameters    |
+|        | windows    |                      |       |                                             |               |                                    |
+|        | aws        |                      |       |                                             |               |                                    |
+|        | gcp        |                      |       |                                             |               |                                    |
+|        | azure      |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | lateral-movement     | T1051 | Shared Webroot                              | n_a           | file-monitoring                    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | exfiltration         | T1052 | Exfiltration Over Physical Medium           | T1052.001     | process-monitoring                 |
+|        | macos      |                      |       |                                             |               | data-loss-prevention               |
+|        | windows    |                      |       |                                             |               | file-monitoring                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | execution            | T1053 | Scheduled Task/Job                          | T1053.001     | file-monitoring                    |
+|        | linux      |                      |       |                                             | T1053.002     | process-monitoring                 |
+|        | macos      |                      |       |                                             | T1053.003     | process-command-line-parameters    |
+|        |            |                      |       |                                             | T1053.004     | windows-event-logs                 |
+|        |            |                      |       |                                             | T1053.005     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | persistence          | T1053 | Scheduled Task/Job                          | T1053.001     | file-monitoring                    |
+|        | linux      |                      |       |                                             | T1053.002     | process-monitoring                 |
+|        | macos      |                      |       |                                             | T1053.003     | process-command-line-parameters    |
+|        |            |                      |       |                                             | T1053.004     | windows-event-logs                 |
+|        |            |                      |       |                                             | T1053.005     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | privilege-escalation | T1053 | Scheduled Task/Job                          | T1053.001     | file-monitoring                    |
+|        | linux      |                      |       |                                             | T1053.002     | process-monitoring                 |
+|        | macos      |                      |       |                                             | T1053.003     | process-command-line-parameters    |
+|        |            |                      |       |                                             | T1053.004     | windows-event-logs                 |
+|        |            |                      |       |                                             | T1053.005     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | defense-evasion      | T1055 | Process Injection                           | T1055.001     | api-monitoring                     |
+|        | macos      |                      |       |                                             | T1055.002     | file-monitoring                    |
+|        | windows    |                      |       |                                             | T1055.003     | dll-monitoring                     |
+|        |            |                      |       |                                             | T1055.004     | process-monitoring                 |
+|        |            |                      |       |                                             | T1055.005     | named-pipes                        |
+|        |            |                      |       |                                             | T1055.008     |                                    |
+|        |            |                      |       |                                             | T1055.009     |                                    |
+|        |            |                      |       |                                             | T1055.011     |                                    |
+|        |            |                      |       |                                             | T1055.012     |                                    |
+|        |            |                      |       |                                             | T1055.013     |                                    |
+|        |            |                      |       |                                             | T1055.014     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | privilege-escalation | T1055 | Process Injection                           | T1055.001     | api-monitoring                     |
+|        | macos      |                      |       |                                             | T1055.002     | file-monitoring                    |
+|        | windows    |                      |       |                                             | T1055.003     | dll-monitoring                     |
+|        |            |                      |       |                                             | T1055.004     | process-monitoring                 |
+|        |            |                      |       |                                             | T1055.005     | named-pipes                        |
+|        |            |                      |       |                                             | T1055.008     |                                    |
+|        |            |                      |       |                                             | T1055.009     |                                    |
+|        |            |                      |       |                                             | T1055.011     |                                    |
+|        |            |                      |       |                                             | T1055.012     |                                    |
+|        |            |                      |       |                                             | T1055.013     |                                    |
+|        |            |                      |       |                                             | T1055.014     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | collection           | T1056 | Input Capture                               | T1056.001     | windows-registry                   |
+|        | macos      |                      |       |                                             | T1056.002     | windows-event-logs                 |
+|        | windows    |                      |       |                                             | T1056.003     | user-interface                     |
+|        |            |                      |       |                                             | T1056.004     | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | powershell-logs                    |
+|        |            |                      |       |                                             |               | loaded-dlls                        |
+|        |            |                      |       |                                             |               | kernel-drivers                     |
+|        |            |                      |       |                                             |               | dll-monitoring                     |
+|        |            |                      |       |                                             |               | binary-file-metadata               |
+|        |            |                      |       |                                             |               | api-monitoring                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | credential-access    | T1056 | Input Capture                               | T1056.001     | windows-registry                   |
+|        | macos      |                      |       |                                             | T1056.002     | windows-event-logs                 |
+|        | windows    |                      |       |                                             | T1056.003     | user-interface                     |
+|        |            |                      |       |                                             | T1056.004     | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | powershell-logs                    |
+|        |            |                      |       |                                             |               | loaded-dlls                        |
+|        |            |                      |       |                                             |               | kernel-drivers                     |
+|        |            |                      |       |                                             |               | dll-monitoring                     |
+|        |            |                      |       |                                             |               | binary-file-metadata               |
+|        |            |                      |       |                                             |               | api-monitoring                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | discovery            | T1057 | Process Discovery                           | n_a           | api-monitoring                     |
+|        | macos      |                      |       |                                             |               | process-monitoring                 |
+|        | windows    |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | execution            | T1061 | Graphical User Interface                    | n_a           | file-monitoring                    |
+|        | macos      |                      |       |                                             |               | process-monitoring                 |
+|        | windows    |                      |       |                                             |               | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | binary-file-metadata               |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | persistence          | T1062 | Hypervisor                                  | n_a           | system-calls                       |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | privilege-escalation | T1068 | Exploitation for Privilege Escalation       | n_a           | windows-error-reporting            |
+|        | macos      |                      |       |                                             |               | process-monitoring                 |
+|        | windows    |                      |       |                                             |               | application-logs                   |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | discovery            | T1069 | Permission Groups Discovery                 | T1069.001     | azure-activity-logs                |
+|        | macos      |                      |       |                                             | T1069.002     | office-365-account-logs            |
+|        | windows    |                      |       |                                             | T1069.003     | api-monitoring                     |
+|        | office-365 |                      |       |                                             |               | process-monitoring                 |
+|        | azure-ad   |                      |       |                                             |               | process-command-line-parameters    |
+|        | aws        |                      |       |                                             |               |                                    |
+|        | gcp        |                      |       |                                             |               |                                    |
+|        | azure      |                      |       |                                             |               |                                    |
+|        | saas       |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | defense-evasion      | T1070 | Indicator Removal on Host                   | T1070.001     | file-monitoring                    |
+|        | macos      |                      |       |                                             | T1070.002     | process-monitoring                 |
+|        | windows    |                      |       |                                             | T1070.003     | process-command-line-parameters    |
+|        |            |                      |       |                                             | T1070.004     | api-monitoring                     |
+|        |            |                      |       |                                             | T1070.005     | windows-event-logs                 |
+|        |            |                      |       |                                             | T1070.006     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | command-and-control  | T1071 | Application Layer Protocol                  | T1071.001     | dns-records                        |
+|        | macos      |                      |       |                                             | T1071.002     | network-protocol-analysis          |
+|        | windows    |                      |       |                                             | T1071.003     | packet-capture                     |
+|        |            |                      |       |                                             | T1071.004     | netflow-enclave-netflow            |
+|        |            |                      |       |                                             |               | process-use-of-network             |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | execution            | T1072 | Software Deployment Tools                   | n_a           | authentication-logs                |
+|        | macos      |                      |       |                                             |               | file-monitoring                    |
+|        | windows    |                      |       |                                             |               | third-party-application-logs       |
+|        |            |                      |       |                                             |               | windows-registry                   |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-use-of-network             |
+|        |            |                      |       |                                             |               | binary-file-metadata               |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | lateral-movement     | T1072 | Software Deployment Tools                   | n_a           | authentication-logs                |
+|        | macos      |                      |       |                                             |               | file-monitoring                    |
+|        | windows    |                      |       |                                             |               | third-party-application-logs       |
+|        |            |                      |       |                                             |               | windows-registry                   |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-use-of-network             |
+|        |            |                      |       |                                             |               | binary-file-metadata               |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | collection           | T1074 | Data Staged                                 | T1074.001     | file-monitoring                    |
+|        | macos      |                      |       |                                             | T1074.002     | process-monitoring                 |
+|        | windows    |                      |       |                                             |               | process-command-line-parameters    |
+|        | aws        |                      |       |                                             |               |                                    |
+|        | gcp        |                      |       |                                             |               |                                    |
+|        | azure      |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | defense-evasion      | T1078 | Valid Accounts                              | T1078.001     | aws-cloudtrail-logs                |
+|        | macos      |                      |       |                                             | T1078.002     | stackdriver-logs                   |
+|        | windows    |                      |       |                                             | T1078.003     | authentication-logs                |
+|        | aws        |                      |       |                                             | T1078.004     | process-monitoring                 |
+|        | gcp        |                      |       |                                             |               |                                    |
+|        | azure      |                      |       |                                             |               |                                    |
+|        | saas       |                      |       |                                             |               |                                    |
+|        | office-365 |                      |       |                                             |               |                                    |
+|        | azure-ad   |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | persistence          | T1078 | Valid Accounts                              | T1078.001     | aws-cloudtrail-logs                |
+|        | macos      |                      |       |                                             | T1078.002     | stackdriver-logs                   |
+|        | windows    |                      |       |                                             | T1078.003     | authentication-logs                |
+|        | aws        |                      |       |                                             | T1078.004     | process-monitoring                 |
+|        | gcp        |                      |       |                                             |               |                                    |
+|        | azure      |                      |       |                                             |               |                                    |
+|        | saas       |                      |       |                                             |               |                                    |
+|        | office-365 |                      |       |                                             |               |                                    |
+|        | azure-ad   |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | privilege-escalation | T1078 | Valid Accounts                              | T1078.001     | aws-cloudtrail-logs                |
+|        | macos      |                      |       |                                             | T1078.002     | stackdriver-logs                   |
+|        | windows    |                      |       |                                             | T1078.003     | authentication-logs                |
+|        | aws        |                      |       |                                             | T1078.004     | process-monitoring                 |
+|        | gcp        |                      |       |                                             |               |                                    |
+|        | azure      |                      |       |                                             |               |                                    |
+|        | saas       |                      |       |                                             |               |                                    |
+|        | office-365 |                      |       |                                             |               |                                    |
+|        | azure-ad   |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | initial-access       | T1078 | Valid Accounts                              | T1078.001     | aws-cloudtrail-logs                |
+|        | macos      |                      |       |                                             | T1078.002     | stackdriver-logs                   |
+|        | windows    |                      |       |                                             | T1078.003     | authentication-logs                |
+|        | aws        |                      |       |                                             | T1078.004     | process-monitoring                 |
+|        | gcp        |                      |       |                                             |               |                                    |
+|        | azure      |                      |       |                                             |               |                                    |
+|        | saas       |                      |       |                                             |               |                                    |
+|        | office-365 |                      |       |                                             |               |                                    |
+|        | azure-ad   |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | lateral-movement     | T1080 | Taint Shared Content                        | n_a           | file-monitoring                    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | discovery            | T1082 | System Information Discovery                | n_a           | azure-activity-logs                |
+|        | macos      |                      |       |                                             |               | stackdriver-logs                   |
+|        | windows    |                      |       |                                             |               | aws-cloudtrail-logs                |
+|        | aws        |                      |       |                                             |               | process-monitoring                 |
+|        | gcp        |                      |       |                                             |               | process-command-line-parameters    |
+|        | azure      |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | discovery            | T1083 | File and Directory Discovery                | n_a           | file-monitoring                    |
+|        | macos      |                      |       |                                             |               | process-monitoring                 |
+|        | windows    |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | discovery            | T1087 | Account Discovery                           | T1087.001     | azure-activity-logs                |
+|        | macos      |                      |       |                                             | T1087.002     | office-365-account-logs            |
+|        | windows    |                      |       |                                             | T1087.003     | api-monitoring                     |
+|        | office-365 |                      |       |                                             | T1087.004     | process-monitoring                 |
+|        | azure-ad   |                      |       |                                             |               | process-command-line-parameters    |
+|        | aws        |                      |       |                                             |               |                                    |
+|        | gcp        |                      |       |                                             |               |                                    |
+|        | azure      |                      |       |                                             |               |                                    |
+|        | saas       |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | command-and-control  | T1090 | Proxy                                       | T1090.001     | ssl-tls-inspection                 |
+|        | macos      |                      |       |                                             | T1090.002     | process-use-of-network             |
+|        | windows    |                      |       |                                             | T1090.003     | process-monitoring                 |
+|        |            |                      |       |                                             | T1090.004     | netflow-enclave-netflow            |
+|        |            |                      |       |                                             |               | packet-capture                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | lateral-movement     | T1091 | Replication Through Removable Media         | n_a           | file-monitoring                    |
+|        |            |                      |       |                                             |               | data-loss-prevention               |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | initial-access       | T1091 | Replication Through Removable Media         | n_a           | file-monitoring                    |
+|        |            |                      |       |                                             |               | data-loss-prevention               |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | command-and-control  | T1092 | Communication Through Removable Media       | n_a           | file-monitoring                    |
+|        | macos      |                      |       |                                             |               | data-loss-prevention               |
+|        | windows    |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | command-and-control  | T1095 | Non-Application Layer Protocol              | n_a           | host-network-interface             |
+|        | linux      |                      |       |                                             |               | netflow-enclave-netflow            |
+|        | macos      |                      |       |                                             |               | network-intrusion-detection-system |
+|        |            |                      |       |                                             |               | network-protocol-analysis          |
+|        |            |                      |       |                                             |               | packet-capture                     |
+|        |            |                      |       |                                             |               | process-use-of-network             |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | persistence          | T1098 | Account Manipulation                        | T1098.001     | authentication-logs                |
+|        | office-365 |                      |       |                                             | T1098.002     | windows-event-logs                 |
+|        | azure      |                      |       |                                             | T1098.003     |                                    |
+|        | gcp        |                      |       |                                             | T1098.004     |                                    |
+|        | azure-ad   |                      |       |                                             |               |                                    |
+|        | aws        |                      |       |                                             |               |                                    |
+|        | linux      |                      |       |                                             |               |                                    |
+|        | macos      |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | command-and-control  | T1102 | Web Service                                 | T1102.001     | host-network-interface             |
+|        | macos      |                      |       |                                             | T1102.002     | netflow-enclave-netflow            |
+|        | windows    |                      |       |                                             | T1102.003     | network-protocol-analysis          |
+|        |            |                      |       |                                             |               | packet-capture                     |
+|        |            |                      |       |                                             |               | ssl-tls-inspection                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | command-and-control  | T1104 | Multi-Stage Channels                        | n_a           | netflow-enclave-netflow            |
+|        | macos      |                      |       |                                             |               | network-device-logs                |
+|        | windows    |                      |       |                                             |               | network-protocol-analysis          |
+|        |            |                      |       |                                             |               | packet-capture                     |
+|        |            |                      |       |                                             |               | process-use-of-network             |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | command-and-control  | T1105 | Ingress Tool Transfer                       | n_a           | process-command-line-parameters    |
+|        | macos      |                      |       |                                             |               | file-monitoring                    |
+|        | windows    |                      |       |                                             |               | packet-capture                     |
+|        |            |                      |       |                                             |               | process-use-of-network             |
+|        |            |                      |       |                                             |               | netflow-enclave-netflow            |
+|        |            |                      |       |                                             |               | network-protocol-analysis          |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | execution            | T1106 | Native API                                  | n_a           | system-calls                       |
+|        | macos      |                      |       |                                             |               | loaded-dlls                        |
+|        | linux      |                      |       |                                             |               | api-monitoring                     |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | defense-evasion      | T1108 | Redundant Access                            | n_a           | office-365-account-logs            |
+|        | macos      |                      |       |                                             |               | azure-activity-logs                |
+|        | windows    |                      |       |                                             |               | aws-cloudtrail-logs                |
+|        | aws        |                      |       |                                             |               | stackdriver-logs                   |
+|        | gcp        |                      |       |                                             |               | process-monitoring                 |
+|        | azure      |                      |       |                                             |               | process-use-of-network             |
+|        | office-365 |                      |       |                                             |               | packet-capture                     |
+|        | saas       |                      |       |                                             |               | network-protocol-analysis          |
+|        | azure-ad   |                      |       |                                             |               | file-monitoring                    |
+|        |            |                      |       |                                             |               | authentication-logs                |
+|        |            |                      |       |                                             |               | binary-file-metadata               |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | persistence          | T1108 | Redundant Access                            | n_a           | office-365-account-logs            |
+|        | macos      |                      |       |                                             |               | azure-activity-logs                |
+|        | windows    |                      |       |                                             |               | aws-cloudtrail-logs                |
+|        | aws        |                      |       |                                             |               | stackdriver-logs                   |
+|        | gcp        |                      |       |                                             |               | process-monitoring                 |
+|        | azure      |                      |       |                                             |               | process-use-of-network             |
+|        | office-365 |                      |       |                                             |               | packet-capture                     |
+|        | saas       |                      |       |                                             |               | network-protocol-analysis          |
+|        | azure-ad   |                      |       |                                             |               | file-monitoring                    |
+|        |            |                      |       |                                             |               | authentication-logs                |
+|        |            |                      |       |                                             |               | binary-file-metadata               |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | credential-access    | T1110 | Brute Force                                 | T1110.001     | office-365-account-logs            |
+|        | macos      |                      |       |                                             | T1110.002     | authentication-logs                |
+|        | windows    |                      |       |                                             | T1110.003     |                                    |
+|        | office-365 |                      |       |                                             | T1110.004     |                                    |
+|        | azure-ad   |                      |       |                                             |               |                                    |
+|        | saas       |                      |       |                                             |               |                                    |
+|        | gcp        |                      |       |                                             |               |                                    |
+|        | aws        |                      |       |                                             |               |                                    |
+|        | azure      |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | credential-access    | T1111 | Two-Factor Authentication Interception      | n_a           | api-monitoring                     |
+|        | windows    |                      |       |                                             |               | process-monitoring                 |
+|        | macos      |                      |       |                                             |               | kernel-drivers                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | defense-evasion      | T1112 | Modify Registry                             | n_a           | windows-registry                   |
+|        |            |                      |       |                                             |               | file-monitoring                    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | windows-event-logs                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | collection           | T1113 | Screen Capture                              | n_a           | api-monitoring                     |
+|        | macos      |                      |       |                                             |               | process-monitoring                 |
+|        | windows    |                      |       |                                             |               | file-monitoring                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | collection           | T1114 | Email Collection                            | T1114.001     | office-365-trace-logs              |
+|        | office-365 |                      |       |                                             | T1114.002     | mail-server                        |
+|        |            |                      |       |                                             | T1114.003     | email-gateway                      |
+|        |            |                      |       |                                             |               | authentication-logs                |
+|        |            |                      |       |                                             |               | file-monitoring                    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-use-of-network             |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | collection           | T1115 | Clipboard Data                              | n_a           | api-monitoring                     |
+|        | windows    |                      |       |                                             |               |                                    |
+|        | macos      |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | collection           | T1119 | Automated Collection                        | n_a           | file-monitoring                    |
+|        | macos      |                      |       |                                             |               | data-loss-prevention               |
+|        | windows    |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | discovery            | T1120 | Peripheral Device Discovery                 | n_a           | powershell-logs                    |
+|        | macos      |                      |       |                                             |               | api-monitoring                     |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | collection           | T1123 | Audio Capture                               | n_a           | api-monitoring                     |
+|        | macos      |                      |       |                                             |               | process-monitoring                 |
+|        | windows    |                      |       |                                             |               | file-monitoring                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | discovery            | T1124 | System Time Discovery                       | n_a           | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | api-monitoring                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | collection           | T1125 | Video Capture                               | n_a           | process-monitoring                 |
+|        | macos      |                      |       |                                             |               | file-monitoring                    |
+|        |            |                      |       |                                             |               | api-monitoring                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | defense-evasion      | T1127 | Trusted Developer Utilities Proxy Execution | T1127.001     | file-monitoring                    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | execution            | T1129 | Shared Modules                              | n_a           | api-monitoring                     |
+|        |            |                      |       |                                             |               | dll-monitoring                     |
+|        |            |                      |       |                                             |               | file-monitoring                    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | command-and-control  | T1132 | Data Encoding                               | T1132.001     | packet-capture                     |
+|        | macos      |                      |       |                                             | T1132.002     | process-use-of-network             |
+|        | windows    |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | network-protocol-analysis          |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | persistence          | T1133 | External Remote Services                    | n_a           | authentication-logs                |
+|        | linux      |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | initial-access       | T1133 | External Remote Services                    | n_a           | authentication-logs                |
+|        | linux      |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | defense-evasion      | T1134 | Access Token Manipulation                   | T1134.001     | authentication-logs                |
+|        |            |                      |       |                                             | T1134.002     | windows-event-logs                 |
+|        |            |                      |       |                                             | T1134.003     | api-monitoring                     |
+|        |            |                      |       |                                             | T1134.004     | access-tokens                      |
+|        |            |                      |       |                                             | T1134.005     | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | privilege-escalation | T1134 | Access Token Manipulation                   | T1134.001     | authentication-logs                |
+|        |            |                      |       |                                             | T1134.002     | windows-event-logs                 |
+|        |            |                      |       |                                             | T1134.003     | api-monitoring                     |
+|        |            |                      |       |                                             | T1134.004     | access-tokens                      |
+|        |            |                      |       |                                             | T1134.005     | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | macos      | discovery            | T1135 | Network Share Discovery                     | n_a           | process-monitoring                 |
+|        | windows    |                      |       |                                             |               | process-command-line-parameters    |
+|        | aws        |                      |       |                                             |               | network-protocol-analysis          |
+|        | gcp        |                      |       |                                             |               | process-use-of-network             |
+|        | azure      |                      |       |                                             |               |                                    |
+|        | linux      |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | persistence          | T1136 | Create Account                              | T1136.001     | office-365-account-logs            |
+|        | macos      |                      |       |                                             | T1136.002     | azure-activity-logs                |
+|        | windows    |                      |       |                                             | T1136.003     | aws-cloudtrail-logs                |
+|        | aws        |                      |       |                                             |               | process-monitoring                 |
+|        | gcp        |                      |       |                                             |               | process-command-line-parameters    |
+|        | azure-ad   |                      |       |                                             |               | authentication-logs                |
+|        | azure      |                      |       |                                             |               | windows-event-logs                 |
+|        | office-365 |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | persistence          | T1137 | Office Application Startup                  | T1137.001     | mail-server                        |
+|        | office-365 |                      |       |                                             | T1137.002     | process-monitoring                 |
+|        |            |                      |       |                                             | T1137.003     | process-command-line-parameters    |
+|        |            |                      |       |                                             | T1137.004     | windows-registry                   |
+|        |            |                      |       |                                             | T1137.005     | file-monitoring                    |
+|        |            |                      |       |                                             | T1137.006     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | defense-evasion      | T1140 | Deobfuscate/Decode Files or Information     | n_a           | file-monitoring                    |
+|        | linux      |                      |       |                                             |               | process-monitoring                 |
+|        | macos      |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | macos      | defense-evasion      | T1149 | LC_MAIN Hijacking                           | n_a           | binary-file-metadata               |
+|        |            |                      |       |                                             |               | malware-reverse-engineering        |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | execution            | T1153 | Source                                      | n_a           | process-monitoring                 |
+|        | macos      |                      |       |                                             |               | file-monitoring                    |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | persistence          | T1176 | Browser Extensions                          | n_a           | windows-registry                   |
+|        | macos      |                      |       |                                             |               | file-monitoring                    |
+|        | windows    |                      |       |                                             |               | process-use-of-network             |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | browser-extensions                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | collection           | T1185 | Man in the Browser                          | n_a           | authentication-logs                |
+|        |            |                      |       |                                             |               | packet-capture                     |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | api-monitoring                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | credential-access    | T1187 | Forced Authentication                       | n_a           | file-monitoring                    |
+|        |            |                      |       |                                             |               | network-protocol-analysis          |
+|        |            |                      |       |                                             |               | network-device-logs                |
+|        |            |                      |       |                                             |               | process-use-of-network             |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | initial-access       | T1189 | Drive-by Compromise                         | n_a           | packet-capture                     |
+|        | linux      |                      |       |                                             |               | network-device-logs                |
+|        | macos      |                      |       |                                             |               | process-use-of-network             |
+|        | saas       |                      |       |                                             |               | web-proxy                          |
+|        |            |                      |       |                                             |               | network-intrusion-detection-system |
+|        |            |                      |       |                                             |               | ssl-tls-inspection                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | initial-access       | T1190 | Exploit Public-Facing Application           | n_a           | azure-activity-logs                |
+|        | windows    |                      |       |                                             |               | aws-cloudtrail-logs                |
+|        | macos      |                      |       |                                             |               | stackdriver-logs                   |
+|        | aws        |                      |       |                                             |               | packet-capture                     |
+|        | gcp        |                      |       |                                             |               | web-logs                           |
+|        | azure      |                      |       |                                             |               | web-application-firewall-logs      |
+|        |            |                      |       |                                             |               | application-logs                   |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | initial-access       | T1195 | Supply Chain Compromise                     | T1195.001     | web-proxy                          |
+|        | windows    |                      |       |                                             | T1195.002     | file-monitoring                    |
+|        | macos      |                      |       |                                             | T1195.003     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | defense-evasion      | T1197 | BITS Jobs                                   | n_a           | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | packet-capture                     |
+|        |            |                      |       |                                             |               | windows-event-logs                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | persistence          | T1197 | BITS Jobs                                   | n_a           | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | packet-capture                     |
+|        |            |                      |       |                                             |               | windows-event-logs                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | initial-access       | T1199 | Trusted Relationship                        | n_a           | azure-activity-logs                |
+|        | windows    |                      |       |                                             |               | stackdriver-logs                   |
+|        | macos      |                      |       |                                             |               | aws-cloudtrail-logs                |
+|        | aws        |                      |       |                                             |               | application-logs                   |
+|        | gcp        |                      |       |                                             |               | authentication-logs                |
+|        | azure      |                      |       |                                             |               | third-party-application-logs       |
+|        | saas       |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | initial-access       | T1200 | Hardware Additions                          | n_a           | asset-management                   |
+|        | linux      |                      |       |                                             |               | data-loss-prevention               |
+|        | macos      |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | discovery            | T1201 | Password Policy Discovery                   | n_a           | process-command-line-parameters    |
+|        | linux      |                      |       |                                             |               | process-monitoring                 |
+|        | macos      |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | defense-evasion      | T1202 | Indirect Command Execution                  | n_a           | file-monitoring                    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | windows-event-logs                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | execution            | T1203 | Exploitation for Client Execution           | n_a           | anti-virus                         |
+|        | windows    |                      |       |                                             |               | system-calls                       |
+|        | macos      |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | execution            | T1204 | User Execution                              | T1204.001     | anti-virus                         |
+|        | windows    |                      |       |                                             | T1204.002     | process-command-line-parameters    |
+|        | macos      |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | defense-evasion      | T1207 | Rogue Domain Controller                     | n_a           | api-monitoring                     |
+|        |            |                      |       |                                             |               | authentication-logs                |
+|        |            |                      |       |                                             |               | network-protocol-analysis          |
+|        |            |                      |       |                                             |               | packet-capture                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | lateral-movement     | T1210 | Exploitation of Remote Services             | n_a           | windows-error-reporting            |
+|        | windows    |                      |       |                                             |               | process-monitoring                 |
+|        | macos      |                      |       |                                             |               | file-monitoring                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | defense-evasion      | T1211 | Exploitation for Defense Evasion            | n_a           | windows-error-reporting            |
+|        | windows    |                      |       |                                             |               | process-monitoring                 |
+|        | macos      |                      |       |                                             |               | file-monitoring                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | credential-access    | T1212 | Exploitation for Credential Access          | n_a           | authentication-logs                |
+|        | windows    |                      |       |                                             |               | windows-error-reporting            |
+|        | macos      |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | collection           | T1213 | Data from Information Repositories          | T1213.001     | azure-activity-logs                |
+|        | windows    |                      |       |                                             | T1213.002     | aws-cloudtrail-logs                |
+|        | macos      |                      |       |                                             |               | stackdriver-logs                   |
+|        | saas       |                      |       |                                             |               | oauth-audit-logs                   |
+|        | aws        |                      |       |                                             |               | application-logs                   |
+|        | gcp        |                      |       |                                             |               | authentication-logs                |
+|        | azure      |                      |       |                                             |               | data-loss-prevention               |
+|        | office-365 |                      |       |                                             |               | third-party-application-logs       |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | defense-evasion      | T1216 | Signed Script Proxy Execution               | T1216.001     | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | discovery            | T1217 | Browser Bookmark Discovery                  | n_a           | api-monitoring                     |
+|        | windows    |                      |       |                                             |               | file-monitoring                    |
+|        | macos      |                      |       |                                             |               | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | defense-evasion      | T1218 | Signed Binary Proxy Execution               | T1218.001     | api-monitoring                     |
+|        |            |                      |       |                                             | T1218.002     | file-monitoring                    |
+|        |            |                      |       |                                             | T1218.003     | binary-file-metadata               |
+|        |            |                      |       |                                             | T1218.004     | process-use-of-network             |
+|        |            |                      |       |                                             | T1218.005     | windows-registry                   |
+|        |            |                      |       |                                             | T1218.007     | loaded-dlls                        |
+|        |            |                      |       |                                             | T1218.008     | dll-monitoring                     |
+|        |            |                      |       |                                             | T1218.009     | process-monitoring                 |
+|        |            |                      |       |                                             | T1218.010     | process-command-line-parameters    |
+|        |            |                      |       |                                             | T1218.011     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | command-and-control  | T1219 | Remote Access Software                      | n_a           | network-intrusion-detection-system |
+|        | windows    |                      |       |                                             |               | network-protocol-analysis          |
+|        | macos      |                      |       |                                             |               | process-use-of-network             |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | defense-evasion      | T1220 | XSL Script Processing                       | n_a           | process-monitoring                 |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | process-use-of-network             |
+|        |            |                      |       |                                             |               | dll-monitoring                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | defense-evasion      | T1221 | Template Injection                          | n_a           | anti-virus                         |
+|        |            |                      |       |                                             |               | email-gateway                      |
+|        |            |                      |       |                                             |               | network-intrusion-detection-system |
+|        |            |                      |       |                                             |               | web-logs                           |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | defense-evasion      | T1222 | File and Directory Permissions Modification | T1222.001     | file-monitoring                    |
+|        | windows    |                      |       |                                             | T1222.002     | process-monitoring                 |
+|        | macos      |                      |       |                                             |               | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | windows-event-logs                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | defense-evasion      | T1480 | Execution Guardrails                        | T1480.001     | process-monitoring                 |
+|        | macos      |                      |       |                                             |               |                                    |
+|        | windows    |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | discovery            | T1482 | Domain Trust Discovery                      | n_a           | powershell-logs                    |
+|        |            |                      |       |                                             |               | api-monitoring                     |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | defense-evasion      | T1484 | Group Policy Modification                   | n_a           | windows-event-logs                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | privilege-escalation | T1484 | Group Policy Modification                   | n_a           | windows-event-logs                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | impact               | T1485 | Data Destruction                            | n_a           | file-monitoring                    |
+|        | macos      |                      |       |                                             |               | process-command-line-parameters    |
+|        | windows    |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | impact               | T1486 | Data Encrypted for Impact                   | n_a           | kernel-drivers                     |
+|        | macos      |                      |       |                                             |               | file-monitoring                    |
+|        | windows    |                      |       |                                             |               | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | impact               | T1489 | Service Stop                                | n_a           | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | windows-registry                   |
+|        |            |                      |       |                                             |               | api-monitoring                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | impact               | T1490 | Inhibit System Recovery                     | n_a           | windows-registry                   |
+|        | macos      |                      |       |                                             |               | services                           |
+|        | linux      |                      |       |                                             |               | windows-event-logs                 |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | impact               | T1491 | Defacement                                  | T1491.001     | packet-capture                     |
+|        | macos      |                      |       |                                             | T1491.002     | web-application-firewall-logs      |
+|        | windows    |                      |       |                                             |               | web-logs                           |
+|        | aws        |                      |       |                                             |               | packet-capture                     |
+|        | gcp        |                      |       |                                             |               |                                    |
+|        | azure      |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | impact               | T1495 | Firmware Corruption                         | n_a           | bios                               |
+|        | macos      |                      |       |                                             |               | component-firmware                 |
+|        | windows    |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | impact               | T1496 | Resource Hijacking                          | n_a           | azure-activity-logs                |
+|        | macos      |                      |       |                                             |               | stackdriver-logs                   |
+|        | windows    |                      |       |                                             |               | aws-cloudtrail-logs                |
+|        | aws        |                      |       |                                             |               | process-use-of-network             |
+|        | gcp        |                      |       |                                             |               | process-monitoring                 |
+|        | azure      |                      |       |                                             |               | network-protocol-analysis          |
+|        |            |                      |       |                                             |               | network-device-logs                |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | defense-evasion      | T1497 | Virtualization/Sandbox Evasion              | T1497.001     | process-monitoring                 |
+|        | macos      |                      |       |                                             | T1497.002     | process-command-line-parameters    |
+|        | linux      |                      |       |                                             | T1497.003     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | discovery            | T1497 | Virtualization/Sandbox Evasion              | T1497.001     | process-monitoring                 |
+|        | macos      |                      |       |                                             | T1497.002     | process-command-line-parameters    |
+|        | linux      |                      |       |                                             | T1497.003     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | impact               | T1498 | Network Denial of Service                   | T1498.001     | sensor-health-and-status           |
+|        | macos      |                      |       |                                             | T1498.002     | network-protocol-analysis          |
+|        | windows    |                      |       |                                             |               | netflow-enclave-netflow            |
+|        | aws        |                      |       |                                             |               | network-intrusion-detection-system |
+|        | gcp        |                      |       |                                             |               | network-device-logs                |
+|        | azure-ad   |                      |       |                                             |               |                                    |
+|        | saas       |                      |       |                                             |               |                                    |
+|        | azure      |                      |       |                                             |               |                                    |
+|        | office-365 |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | impact               | T1499 | Endpoint Denial of Service                  | T1499.001     | ssl-tls-inspection                 |
+|        | macos      |                      |       |                                             | T1499.002     | web-logs                           |
+|        | windows    |                      |       |                                             | T1499.003     | web-application-firewall-logs      |
+|        | aws        |                      |       |                                             | T1499.004     | network-intrusion-detection-system |
+|        | gcp        |                      |       |                                             |               | network-protocol-analysis          |
+|        | azure      |                      |       |                                             |               | network-device-logs                |
+|        | office-365 |                      |       |                                             |               | netflow-enclave-netflow            |
+|        | azure-ad   |                      |       |                                             |               |                                    |
+|        | saas       |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | persistence          | T1505 | Server Software Component                   | T1505.001     | netflow-enclave-netflow            |
+|        | linux      |                      |       |                                             | T1505.002     | process-monitoring                 |
+|        | macos      |                      |       |                                             | T1505.003     | file-monitoring                    |
+|        |            |                      |       |                                             |               | application-logs                   |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | discovery            | T1518 | Software Discovery                          | T1518.001     | stackdriver-logs                   |
+|        | macos      |                      |       |                                             |               | azure-activity-logs                |
+|        | windows    |                      |       |                                             |               | aws-cloudtrail-logs                |
+|        | aws        |                      |       |                                             |               | process-command-line-parameters    |
+|        | gcp        |                      |       |                                             |               | process-monitoring                 |
+|        | azure      |                      |       |                                             |               | file-monitoring                    |
+|        | office-365 |                      |       |                                             |               |                                    |
+|        | azure-ad   |                      |       |                                             |               |                                    |
+|        | saas       |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | gcp        | persistence          | T1525 | Implant Container Image                     | n_a           | file-monitoring                    |
+|        | azure      |                      |       |                                             |               | asset-management                   |
+|        | aws        |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | aws        | discovery            | T1526 | Cloud Service Discovery                     | n_a           | azure-activity-logs                |
+|        | gcp        |                      |       |                                             |               | stackdriver-logs                   |
+|        | azure      |                      |       |                                             |               | aws-cloudtrail-logs                |
+|        | azure-ad   |                      |       |                                             |               |                                    |
+|        | office-365 |                      |       |                                             |               |                                    |
+|        | saas       |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | saas       | credential-access    | T1528 | Steal Application Access Token              | n_a           | azure-activity-logs                |
+|        | office-365 |                      |       |                                             |               | oauth-audit-logs                   |
+|        | azure-ad   |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | impact               | T1529 | System Shutdown/Reboot                      | n_a           | windows-event-logs                 |
+|        | macos      |                      |       |                                             |               | process-command-line-parameters    |
+|        | windows    |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | aws        | collection           | T1530 | Data from Cloud Storage Object              | n_a           | stackdriver-logs                   |
+|        | gcp        |                      |       |                                             |               | azure-activity-logs                |
+|        | azure      |                      |       |                                             |               | aws-cloudtrail-logs                |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | impact               | T1531 | Account Access Removal                      | n_a           | windows-event-logs                 |
+|        | macos      |                      |       |                                             |               | process-command-line-parameters    |
+|        | windows    |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | lateral-movement     | T1534 | Internal Spearphishing                      | n_a           | ssl-tls-inspection                 |
+|        | macos      |                      |       |                                             |               | dns-records                        |
+|        | linux      |                      |       |                                             |               | anti-virus                         |
+|        | office-365 |                      |       |                                             |               | web-proxy                          |
+|        | saas       |                      |       |                                             |               | file-monitoring                    |
+|        |            |                      |       |                                             |               | mail-server                        |
+|        |            |                      |       |                                             |               | office-365-trace-logs              |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | aws        | defense-evasion      | T1535 | Unused/Unsupported Cloud Regions            | n_a           | stackdriver-logs                   |
+|        | gcp        |                      |       |                                             |               | azure-activity-logs                |
+|        | azure      |                      |       |                                             |               | aws-cloudtrail-logs                |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | azure      | exfiltration         | T1537 | Transfer Data to Cloud Account              | n_a           | stackdriver-logs                   |
+|        | aws        |                      |       |                                             |               | azure-activity-logs                |
+|        | gcp        |                      |       |                                             |               | aws-cloudtrail-logs                |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | aws        | discovery            | T1538 | Cloud Service Dashboard                     | n_a           | office-365-audit-logs              |
+|        | gcp        |                      |       |                                             |               | azure-activity-logs                |
+|        | azure      |                      |       |                                             |               | stackdriver-logs                   |
+|        | azure-ad   |                      |       |                                             |               | aws-cloudtrail-logs                |
+|        | office-365 |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | credential-access    | T1539 | Steal Web Session Cookie                    | n_a           | file-monitoring                    |
+|        | macos      |                      |       |                                             |               | api-monitoring                     |
+|        | windows    |                      |       |                                             |               |                                    |
+|        | office-365 |                      |       |                                             |               |                                    |
+|        | saas       |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | defense-evasion      | T1542 | Pre-OS Boot                                 | T1542.001     | vbr                                |
+|        | windows    |                      |       |                                             | T1542.002     | mbr                                |
+|        |            |                      |       |                                             | T1542.003     | component-firmware                 |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | disk-forensics                     |
+|        |            |                      |       |                                             |               | efi                                |
+|        |            |                      |       |                                             |               | bios                               |
+|        |            |                      |       |                                             |               | api-monitoring                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | persistence          | T1542 | Pre-OS Boot                                 | T1542.001     | vbr                                |
+|        | windows    |                      |       |                                             | T1542.002     | mbr                                |
+|        |            |                      |       |                                             | T1542.003     | component-firmware                 |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | disk-forensics                     |
+|        |            |                      |       |                                             |               | efi                                |
+|        |            |                      |       |                                             |               | bios                               |
+|        |            |                      |       |                                             |               | api-monitoring                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | persistence          | T1543 | Create or Modify System Process             | T1543.001     | windows-event-logs                 |
+|        | macos      |                      |       |                                             | T1543.002     | windows-registry                   |
+|        | linux      |                      |       |                                             | T1543.003     | file-monitoring                    |
+|        |            |                      |       |                                             | T1543.004     | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | privilege-escalation | T1543 | Create or Modify System Process             | T1543.001     | windows-event-logs                 |
+|        | macos      |                      |       |                                             | T1543.002     | windows-registry                   |
+|        | linux      |                      |       |                                             | T1543.003     | file-monitoring                    |
+|        |            |                      |       |                                             | T1543.004     | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | privilege-escalation | T1546 | Event Triggered Execution                   | T1546.001     | api-monitoring                     |
+|        | macos      |                      |       |                                             | T1546.002     | windows-event-logs                 |
+|        | windows    |                      |       |                                             | T1546.003     | system-calls                       |
+|        |            |                      |       |                                             | T1546.004     | binary-file-metadata               |
+|        |            |                      |       |                                             | T1546.005     | process-use-of-network             |
+|        |            |                      |       |                                             | T1546.006     | wmi-objects                        |
+|        |            |                      |       |                                             | T1546.007     | file-monitoring                    |
+|        |            |                      |       |                                             | T1546.008     | process-command-line-parameters    |
+|        |            |                      |       |                                             | T1546.009     | process-monitoring                 |
+|        |            |                      |       |                                             | T1546.010     | loaded-dlls                        |
+|        |            |                      |       |                                             | T1546.011     | dll-monitoring                     |
+|        |            |                      |       |                                             | T1546.012     | windows-registry                   |
+|        |            |                      |       |                                             | T1546.013     |                                    |
+|        |            |                      |       |                                             | T1546.014     |                                    |
+|        |            |                      |       |                                             | T1546.015     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | persistence          | T1546 | Event Triggered Execution                   | T1546.001     | api-monitoring                     |
+|        | macos      |                      |       |                                             | T1546.002     | windows-event-logs                 |
+|        | windows    |                      |       |                                             | T1546.003     | system-calls                       |
+|        |            |                      |       |                                             | T1546.004     | binary-file-metadata               |
+|        |            |                      |       |                                             | T1546.005     | process-use-of-network             |
+|        |            |                      |       |                                             | T1546.006     | wmi-objects                        |
+|        |            |                      |       |                                             | T1546.007     | file-monitoring                    |
+|        |            |                      |       |                                             | T1546.008     | process-command-line-parameters    |
+|        |            |                      |       |                                             | T1546.009     | process-monitoring                 |
+|        |            |                      |       |                                             | T1546.010     | loaded-dlls                        |
+|        |            |                      |       |                                             | T1546.011     | dll-monitoring                     |
+|        |            |                      |       |                                             | T1546.012     | windows-registry                   |
+|        |            |                      |       |                                             | T1546.013     |                                    |
+|        |            |                      |       |                                             | T1546.014     |                                    |
+|        |            |                      |       |                                             | T1546.015     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | privilege-escalation | T1548 | Abuse Elevation Control Mechanism           | T1548.001     | windows-registry                   |
+|        | macos      |                      |       |                                             | T1548.002     | file-monitoring                    |
+|        | windows    |                      |       |                                             | T1548.003     | process-command-line-parameters    |
+|        |            |                      |       |                                             | T1548.004     | api-monitoring                     |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | defense-evasion      | T1548 | Abuse Elevation Control Mechanism           | T1548.001     | windows-registry                   |
+|        | macos      |                      |       |                                             | T1548.002     | file-monitoring                    |
+|        | windows    |                      |       |                                             | T1548.003     | process-command-line-parameters    |
+|        |            |                      |       |                                             | T1548.004     | api-monitoring                     |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | defense-evasion      | T1550 | Use Alternate Authentication Material       | T1550.001     | office-365-audit-logs              |
+|        | office-365 |                      |       |                                             | T1550.002     | oauth-audit-logs                   |
+|        | saas       |                      |       |                                             | T1550.003     | authentication-logs                |
+|        |            |                      |       |                                             | T1550.004     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | lateral-movement     | T1550 | Use Alternate Authentication Material       | T1550.001     | office-365-audit-logs              |
+|        | office-365 |                      |       |                                             | T1550.002     | oauth-audit-logs                   |
+|        | saas       |                      |       |                                             | T1550.003     | authentication-logs                |
+|        |            |                      |       |                                             | T1550.004     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | credential-access    | T1552 | Unsecured Credentials                       | T1552.001     | file-monitoring                    |
+|        | macos      |                      |       |                                             | T1552.002     | windows-registry                   |
+|        | windows    |                      |       |                                             | T1552.003     | process-monitoring                 |
+|        | aws        |                      |       |                                             | T1552.004     | process-command-line-parameters    |
+|        | gcp        |                      |       |                                             | T1552.005     |                                    |
+|        | azure      |                      |       |                                             | T1552.006     |                                    |
+|        | office-365 |                      |       |                                             |               |                                    |
+|        | azure-ad   |                      |       |                                             |               |                                    |
+|        | saas       |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | persistence          | T1554 | Compromise Client Software Binary           | n_a           | process-monitoring                 |
+|        | macos      |                      |       |                                             |               | binary-file-metadata               |
+|        | windows    |                      |       |                                             |               |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | credential-access    | T1555 | Credentials from Password Stores            | T1555.001     | powershell-logs                    |
+|        | macos      |                      |       |                                             | T1555.002     | api-monitoring                     |
+|        | windows    |                      |       |                                             | T1555.003     | file-monitoring                    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | system-calls                       |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | credential-access    | T1556 | Modify Authentication Process               | T1556.001     | file-monitoring                    |
+|        | linux      |                      |       |                                             | T1556.002     | authentication-logs                |
+|        | macos      |                      |       |                                             | T1556.003     | api-monitoring                     |
+|        |            |                      |       |                                             |               | windows-registry                   |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | dll-monitoring                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | defense-evasion      | T1556 | Modify Authentication Process               | T1556.001     | file-monitoring                    |
+|        | linux      |                      |       |                                             | T1556.002     | authentication-logs                |
+|        | macos      |                      |       |                                             | T1556.003     | api-monitoring                     |
+|        |            |                      |       |                                             |               | windows-registry                   |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | dll-monitoring                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | credential-access    | T1557 | Man-in-the-Middle                           | T1557.001     | file-monitoring                    |
+|        | macos      |                      |       |                                             |               | netflow-enclave-netflow            |
+|        | linux      |                      |       |                                             |               | packet-capture                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | collection           | T1557 | Man-in-the-Middle                           | T1557.001     | file-monitoring                    |
+|        | macos      |                      |       |                                             |               | netflow-enclave-netflow            |
+|        | linux      |                      |       |                                             |               | packet-capture                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | credential-access    | T1558 | Steal or Forge Kerberos Tickets             | T1558.001     | windows-event-logs                 |
+|        |            |                      |       |                                             | T1558.002     | authentication-logs                |
+|        |            |                      |       |                                             | T1558.003     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | execution            | T1559 | Inter-Process Communication                 | T1559.001     | process-monitoring                 |
+|        |            |                      |       |                                             | T1559.002     | dll-monitoring                     |
+|        |            |                      |       |                                             |               | file-monitoring                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | collection           | T1560 | Archive Collected Data                      | T1560.001     | process-monitoring                 |
+|        | macos      |                      |       |                                             | T1560.002     | process-command-line-parameters    |
+|        | windows    |                      |       |                                             |               | file-monitoring                    |
+|        |            |                      |       |                                             |               | binary-file-metadata               |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | impact               | T1561 | Disk Wipe                                   | T1561.001     | kernel-drivers                     |
+|        | macos      |                      |       |                                             | T1561.002     | process-monitoring                 |
+|        | windows    |                      |       |                                             |               | process-command-line-parameters    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | defense-evasion      | T1562 | Impair Defenses                             | T1562.001     | gcp-audit-logs                     |
+|        | windows    |                      |       |                                             | T1562.002     | azure-activity-logs                |
+|        | macos      |                      |       |                                             | T1562.003     | aws-cloudtrail-logs                |
+|        | aws        |                      |       |                                             | T1562.004     | anti-virus                         |
+|        | gcp        |                      |       |                                             | T1562.006     | services                           |
+|        | azure      |                      |       |                                             | T1562.007     | api-monitoring                     |
+|        |            |                      |       |                                             |               | environment-variable               |
+|        |            |                      |       |                                             |               | authentication-logs                |
+|        |            |                      |       |                                             |               | file-monitoring                    |
+|        |            |                      |       |                                             |               | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | windows-registry                   |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | lateral-movement     | T1563 | Remote Service Session Hijacking            | T1563.001     | process-command-line-parameters    |
+|        | macos      |                      |       |                                             | T1563.002     | process-monitoring                 |
+|        | windows    |                      |       |                                             |               | netflow-enclave-netflow            |
+|        |            |                      |       |                                             |               | authentication-logs                |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | defense-evasion      | T1564 | Hide Artifacts                              | T1564.001     | api-monitoring                     |
+|        | macos      |                      |       |                                             | T1564.002     | powershell-logs                    |
+|        | windows    |                      |       |                                             | T1564.003     | authentication-logs                |
+|        |            |                      |       |                                             | T1564.004     | process-command-line-parameters    |
+|        |            |                      |       |                                             | T1564.005     | process-monitoring                 |
+|        |            |                      |       |                                             | T1564.006     | file-monitoring                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | impact               | T1565 | Data Manipulation                           | T1565.001     | packet-capture                     |
+|        | macos      |                      |       |                                             | T1565.002     | network-protocol-analysis          |
+|        | windows    |                      |       |                                             | T1565.003     | file-monitoring                    |
+|        |            |                      |       |                                             |               | application-logs                   |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | initial-access       | T1566 | Phishing                                    | T1566.001     | file-monitoring                    |
+|        | macos      |                      |       |                                             | T1566.002     | packet-capture                     |
+|        | windows    |                      |       |                                             | T1566.003     | web-proxy                          |
+|        | saas       |                      |       |                                             |               | email-gateway                      |
+|        | office-365 |                      |       |                                             |               | mail-server                        |
+|        |            |                      |       |                                             |               | network-intrusion-detection-system |
+|        |            |                      |       |                                             |               | detonation-chamber                 |
+|        |            |                      |       |                                             |               | ssl-tls-inspection                 |
+|        |            |                      |       |                                             |               | anti-virus                         |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | exfiltration         | T1567 | Exfiltration Over Web Service               | T1567.001     | process-monitoring                 |
+|        | macos      |                      |       |                                             | T1567.002     | process-use-of-network             |
+|        | windows    |                      |       |                                             |               | packet-capture                     |
+|        |            |                      |       |                                             |               | netflow-enclave-netflow            |
+|        |            |                      |       |                                             |               | network-protocol-analysis          |
+|        |            |                      |       |                                             |               | ssl-tls-inspection                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | command-and-control  | T1568 | Dynamic Resolution                          | T1568.001     | ssl-tls-inspection                 |
+|        | macos      |                      |       |                                             | T1568.002     | web-logs                           |
+|        | windows    |                      |       |                                             | T1568.003     | dns-records                        |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | windows    | execution            | T1569 | System Services                             | T1569.001     | windows-registry                   |
+|        | macos      |                      |       |                                             | T1569.002     | process-command-line-parameters    |
+|        |            |                      |       |                                             |               | process-monitoring                 |
+|        |            |                      |       |                                             |               | file-monitoring                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | lateral-movement     | T1570 | Lateral Tool Transfer                       | n_a           | process-command-line-parameters    |
+|        | macos      |                      |       |                                             |               | file-monitoring                    |
+|        | windows    |                      |       |                                             |               | packet-capture                     |
+|        |            |                      |       |                                             |               | process-use-of-network             |
+|        |            |                      |       |                                             |               | netflow-enclave-netflow            |
+|        |            |                      |       |                                             |               | network-protocol-analysis          |
+|        |            |                      |       |                                             |               | process-monitoring                 |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | command-and-control  | T1571 | Non-Standard Port                           | n_a           | process-monitoring                 |
+|        | macos      |                      |       |                                             |               | process-use-of-network             |
+|        | windows    |                      |       |                                             |               | netflow-enclave-netflow            |
+|        |            |                      |       |                                             |               | packet-capture                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | command-and-control  | T1572 | Protocol Tunneling                          | n_a           | network-protocol-analysis          |
+|        | macos      |                      |       |                                             |               | process-monitoring                 |
+|        | windows    |                      |       |                                             |               | process-use-of-network             |
+|        |            |                      |       |                                             |               | netflow-enclave-netflow            |
+|        |            |                      |       |                                             |               | packet-capture                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | command-and-control  | T1573 | Encrypted Channel                           | T1573.001     | ssl-tls-inspection                 |
+|        | macos      |                      |       |                                             | T1573.002     | process-monitoring                 |
+|        | windows    |                      |       |                                             |               | process-use-of-network             |
+|        |            |                      |       |                                             |               | malware-reverse-engineering        |
+|        |            |                      |       |                                             |               | netflow-enclave-netflow            |
+|        |            |                      |       |                                             |               | packet-capture                     |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | persistence          | T1574 | Hijack Execution Flow                       | T1574.001     | environment-variable               |
+|        | macos      |                      |       |                                             | T1574.002     | loaded-dlls                        |
+|        | windows    |                      |       |                                             | T1574.004     | process-command-line-parameters    |
+|        |            |                      |       |                                             | T1574.005     | process-monitoring                 |
+|        |            |                      |       |                                             | T1574.006     | file-monitoring                    |
+|        |            |                      |       |                                             | T1574.007     | dll-monitoring                     |
+|        |            |                      |       |                                             | T1574.008     |                                    |
+|        |            |                      |       |                                             | T1574.009     |                                    |
+|        |            |                      |       |                                             | T1574.010     |                                    |
+|        |            |                      |       |                                             | T1574.011     |                                    |
+|        |            |                      |       |                                             | T1574.012     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | privilege-escalation | T1574 | Hijack Execution Flow                       | T1574.001     | environment-variable               |
+|        | macos      |                      |       |                                             | T1574.002     | loaded-dlls                        |
+|        | windows    |                      |       |                                             | T1574.004     | process-command-line-parameters    |
+|        |            |                      |       |                                             | T1574.005     | process-monitoring                 |
+|        |            |                      |       |                                             | T1574.006     | file-monitoring                    |
+|        |            |                      |       |                                             | T1574.007     | dll-monitoring                     |
+|        |            |                      |       |                                             | T1574.008     |                                    |
+|        |            |                      |       |                                             | T1574.009     |                                    |
+|        |            |                      |       |                                             | T1574.010     |                                    |
+|        |            |                      |       |                                             | T1574.011     |                                    |
+|        |            |                      |       |                                             | T1574.012     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | linux      | defense-evasion      | T1574 | Hijack Execution Flow                       | T1574.001     | environment-variable               |
+|        | macos      |                      |       |                                             | T1574.002     | loaded-dlls                        |
+|        | windows    |                      |       |                                             | T1574.004     | process-command-line-parameters    |
+|        |            |                      |       |                                             | T1574.005     | process-monitoring                 |
+|        |            |                      |       |                                             | T1574.006     | file-monitoring                    |
+|        |            |                      |       |                                             | T1574.007     | dll-monitoring                     |
+|        |            |                      |       |                                             | T1574.008     |                                    |
+|        |            |                      |       |                                             | T1574.009     |                                    |
+|        |            |                      |       |                                             | T1574.010     |                                    |
+|        |            |                      |       |                                             | T1574.011     |                                    |
+|        |            |                      |       |                                             | T1574.012     |                                    |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
+| Active | aws        | defense-evasion      | T1578 | Modify Cloud Compute Infrastructure         | T1578.001     | stackdriver-logs                   |
+|        | gcp        |                      |       |                                             | T1578.002     | gcp-audit-logs                     |
+|        | azure      |                      |       |                                             | T1578.003     | azure-activity-logs                |
+|        |            |                      |       |                                             | T1578.004     | aws-cloudtrail-logs                |
++--------+------------+----------------------+-------+---------------------------------------------+---------------+------------------------------------+
