@@ -12,9 +12,9 @@ A custom, more useful, and much cooler MITRE-CTI-CLIENT.
 - [x] Mitre Enterprise Matrix
 - [ ] Mitre Mobile Matrix
 - [ ] Mitre Pre-Attack Matrix
-- [x] Linux
-- [x] MacOS
-- [ ] Windows
+- [x] Linux - 64bit
+- [x] MacOS - 64bit
+- [x] Windows - 64bit
 - [ ] Data Interchange Format
    - [ ] CSV
    - [ ] JSON
