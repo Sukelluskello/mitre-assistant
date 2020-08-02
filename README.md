@@ -208,11 +208,26 @@ You use the keyword `stats` in your search term, like this
 $> mitre-assistant search -m enterprise -t "stats"
 ```
 <br/>
-
-![image](https://user-images.githubusercontent.com/11415591/89109965-ef270380-d413-11ea-9c4b-c780f2927fe0.png)
-
 <br/>
 
+|UNIQUES & TOTALS|
+|-----------------|
+|![image](https://user-images.githubusercontent.com/11415591/89135007-ff181380-d4f7-11ea-8b70-97ae6421d3d1.png)|
+
+
+
+<br/>
+<br/>
+
+
+| TECHNIQUES | SUBTECHNIQUES|
+|------------|--------------|
+|![image](https://user-images.githubusercontent.com/11415591/89134982-e3147200-d4f7-11ea-9e31-f985500d2ee3.png)|![image](https://user-images.githubusercontent.com/11415591/89134971-d263fc00-d4f7-11ea-992c-39730ead0421.png)|
+
+
+
+<br/>
+<br/>
 ## *Searching The Enterprise Matrix For A Single Technique By ID*
 
 
