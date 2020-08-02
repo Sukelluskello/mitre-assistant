@@ -309,7 +309,7 @@ impl EnterpriseMatrixSearcher {
     {
         let mut _table = Table::new();
         _table.add_row(Row::new(vec![
-            Cell::new("IDX").style_spec("FW"),
+            Cell::new("INDEX").style_spec("FW"),
             Cell::new("DATASOURCE").style_spec("FW"),
         ]));
         let _json: Vec<String> = serde_json::from_str(results[0].as_str()).expect("(?) Error: Unable To Deserialize Search Results By DataSources");
@@ -325,6 +325,7 @@ impl EnterpriseMatrixSearcher {
     {
         let mut _table = Table::new();
         _table.add_row(Row::new(vec![
+            Cell::new("INDEX"),
             Cell::new("STATUS"),
             Cell::new("PLATFORMS"),
             Cell::new("TACTIC"),
@@ -347,6 +348,8 @@ impl EnterpriseMatrixSearcher {
         _sorted_index.sort();
         //println!("{:#?}", _sorted_index);
         let mut _st = String::from("");
+        let mut _idx: usize = 0;
+
         for (_technique, _jidx, _ridx) in _sorted_index {
             let _json: Vec<EnterpriseTechnique> = serde_json::from_str(results[_ridx].as_str()).expect("(?) Error: Render Table Deserialization");
             let _row = &_json[_jidx];
@@ -358,6 +361,7 @@ impl EnterpriseMatrixSearcher {
             }
             _table.add_row(
                 Row::new(vec![
+                    Cell::new((_idx + 1).to_string().as_str()),
                     Cell::new("Active"),
                     Cell::new(_row.platform.replace("|", "\n").as_str()),
                     Cell::new(_row.tactic.as_str()),
@@ -367,7 +371,8 @@ impl EnterpriseMatrixSearcher {
                     Cell::new(_row.datasources.replace("|", "\n").as_str())
                 ])
             ); 
-            _st.clear();            
+            _st.clear();
+            _idx += 1;            
         }
         _table.printstd();
     }
@@ -405,57 +410,67 @@ impl EnterpriseMatrixSearcher {
         let _json: EnterpriseMatrixStatistics = serde_json::from_str(_item.as_str()).expect("(?) Error:  Render Table Deserialization For Stats");
         _table.add_row(
             Row::new(vec![
-                Cell::new("Total - Revoked Techniques"),
-                Cell::new(_json.count_revoked_techniques.to_string().as_str()),
+                Cell::new("By Uniques").style_spec("FY"),
+                Cell::new(""),
             ])
-        );
-        _table.add_empty_row();           
+        );  
         _table.add_row(
             Row::new(vec![
-                Cell::new("Total - Active Techniques"),
-                Cell::new(_json.count_active_total_techniques.to_string().as_str()),
-        ]));
-        _table.add_row(
-            Row::new(vec![
-                Cell::new("Total - Active Subtechniques"),
-                Cell::new(_json.count_active_total_subtechniques.to_string().as_str()),
-        ]));
-        _table.add_empty_row();
-        _table.add_row(
-            Row::new(vec![
-                Cell::new("Uniq - Active Techniques"),
+                Cell::new("Active Techniques"),
                 Cell::new(_json.count_active_uniq_techniques.to_string().as_str()),
             ])                                                                                                                                
         );
         _table.add_row(
             Row::new(vec![
-                Cell::new("Uniq - Active Subtechniques"),
+                Cell::new("Active Subtechniques"),
                 Cell::new(_json.count_active_uniq_subtechniques.to_string().as_str())
             ])
         );
-        _table.add_empty_row();
         _table.add_row(
             Row::new(vec![
-                Cell::new("Uniq - Active Platforms"),
+                Cell::new("Active Platforms"),
                 Cell::new(_json.count_platforms.to_string().as_str()),
             ])
         );
         _table.add_row(
             Row::new(vec![
-                Cell::new("Uniq - Active Tactics"),
+                Cell::new("Active Tactics"),
                 Cell::new(_json.count_tactics.to_string().as_str()),
             ])
         );
         _table.add_row(
             Row::new(vec![
-                Cell::new("Uniq - Active Data Sources"),
+                Cell::new("Active Data Sources"),
                 Cell::new(_json.count_datasources.to_string().as_str()),
             ])
         );
         _table.add_empty_row();
         _table.add_row(
             Row::new(vec![
-                Cell::new("Total - Techniques By Platform").style_spec("FY"),
+                Cell::new("By Totals").style_spec("FY"),
+                Cell::new(""),
+            ])
+        );  
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Revoked Techniques"),
+                Cell::new(_json.count_revoked_techniques.to_string().as_str()),
+            ])
+        );         
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Active Techniques"),
+                Cell::new(_json.count_active_total_techniques.to_string().as_str()),
+        ]));
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Active Subtechniques"),
+                Cell::new(_json.count_active_total_subtechniques.to_string().as_str()),
+        ]));
+        _table.add_empty_row();        
+        _table.add_row(
+            Row::new(vec![
+                Cell::new("Totals - Techniques By Platform").style_spec("FY"),
                 Cell::new(""),
             ])
         );        
