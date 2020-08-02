@@ -49,14 +49,26 @@ impl EnterpriseMatrixSearcher {
         let mut _wants_stats: bool = false;
         let mut _wants_nosub: bool = false;
         let mut _wants_revoked: bool = false;
-        let mut _wants_platforms: bool = false;
-        let mut _wants_datasources: bool = false;
-        let mut _wants_all_techniques: bool = false;
-        let mut _wants_all_subtechniques: bool = false;
         // Parse the search term explicitly
         // We are not using partial matches on search term keywords
-        // We keep simple incrementing usize by search term
-        if search_term.to_lowercase().as_str() == "revoked" {
+        // We keep a simple incrementing usize by search term
+        if !search_term.contains(“,”) {
+            if _scanner.pattern.is_match(search_term) {
+                let _idx: Vec<usize> = _scanner.pattern.matches(search_term).into_iter().collect();
+                _valid.push((search_term, _idx[0]));  // Search Term 1usize
+            }
+        }
+        else if search_term.contains(“,”) {
+            let _terms: Vec<&str> = search_term.split(‘,’).collect();
+            _valid = _terms.iter()
+                        .filter(|_x| _scanner.pattern.is_match(_x))
+                        .map(|_x| {
+                            let _idx: Vec<_> = _scanner.pattern.matches(_x).into_iter().collect();
+                            (*_x, _idx[0]) // Search Term 2usize
+                        })
+                        .collect();
+        }
+        else if search_term.to_lowercase().as_str() == "revoked" {
             _valid.push((search_term, 3usize));
             _wants_revoked = true;
         }
@@ -70,35 +82,17 @@ impl EnterpriseMatrixSearcher {
         }
         else if search_term.to_lowercase().as_str() == "techniques" {
             _valid.push((search_term, 6usize)); //TODO
-            _wants_all_techniques = true;
         }
         else if search_term.to_lowercase().as_str() == "subtechniques" {
             _valid.push((search_term, 7usize)); //TODO
-            _wants_all_subtechniques = true;
         }
         else if search_term.to_lowercase().as_str() == "datasources" {
             _valid.push((search_term, 8usize)); //TODO
-            _wants_datasources = true;
         }
         else if search_term.to_lowercase().as_str() == "platforms" {
-            _valid.push((search_term, 10usize));    //TODO
+            _valid.push((search_term, 9usize));    //TODO
         }        
-        else if !search_term.contains(",") {
-            if _scanner.pattern.is_match(search_term) {
-                let _idx: Vec<usize> = _scanner.pattern.matches(search_term).into_iter().collect();
-                _valid.push((search_term, _idx[0]));
-            }
-        }
-        else if search_term.contains(",") {
-            let _terms: Vec<&str> = search_term.split(',').collect();
-            _valid = _terms.iter()
-                        .filter(|_x| _scanner.pattern.is_match(_x))
-                        .map(|_x| {
-                            let _idx: Vec<_> = _scanner.pattern.matches(_x).into_iter().collect();
-                            (*_x, _idx[0])
-                        })
-                        .collect();
-        }
+
         if _valid.len() >= 1 {
             for (_term, _pattern) in _valid.iter() {
                 if _pattern == &0usize {
@@ -113,6 +107,10 @@ impl EnterpriseMatrixSearcher {
                     _results.push(self.enterprise_stats());
                 } else if _pattern == &5usize {
                     _results.push(self.enterprise_by_nosubtechniques());
+                } else if _pattern == &6usize {
+                    _results.push(self.enterprise_all_techniques());
+                } else if _pattern == &7usize {
+                    _results.push(self.enterprise_all_subtechniques());
                 }
             }
             //_results.sort();
@@ -126,6 +124,17 @@ impl EnterpriseMatrixSearcher {
         } else {
             println!(r#"[ "Results": {}, "SearchTerm": {} ]"#, "None Found", search_term);
         }
+    }
+    fn enterprise_all_techniques(&self) -> String
+    {
+        //let mut _results = vec![];
+        let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
+        serde_json::to_string(&_json.breakdown_techniques.platforms).expect(“(?) Error: Unable To Deserialize All Techniques”);
+    }
+    fn enterprise_all_subtechniques(&self) -> String
+    {
+        let _json: EnterpriseMatrixBreakdown = serde_json::from_slice(&self.content[..]).unwrap();
+        serde_json::to_string(&_json.breakdown_subtechniques.platforms).expect(“(?) Error: Unable To Deserialize All Techniques”);
     }
     fn enterprise_by_name(&self, technique_name: &str) -> String
     {
