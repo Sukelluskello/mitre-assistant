@@ -136,7 +136,7 @@ You have to tell the `search subcommand` which matrix it is going to work with b
 
 <br/>
 
-## *Searching The Enterprise Matrix For a Stats Summary*
+## *Searching The Enterprise Matrix For An Overview Stats Summary*
 You use the keyword `stats` in your search term, like this
 
 ```bash
@@ -167,7 +167,7 @@ $> mitre-assistant search -m enterprise -t "t1021"
 
 <br/>
 
-## *Searching The Enterprise Matrix For A Many Techniques By ID*
+## *Searching The Enterprise Matrix For Many Techniques By ID*
 Cool, now you just have to add a comma `,` in your term and launch it again, dead-simple!
 
 <br/>
@@ -219,3 +219,96 @@ $> mitre-assistant search -m enterprise -t "revoked"
 ![image](https://user-images.githubusercontent.com/11415591/89109865-074a5300-d413-11ea-87e9-5fadeb569e84.png)
 
 <br/>
+<br/>
+
+## *Searching For The Datasources*
+
+```text
+Protip:
+
+1. Do not follow Mitre blindly, you need to curate their content
+and organize it.
+
+Example:
+
+1. DLL Monitoring & Loaded DLLs
+
+Mitre currently has these two datasources, what does this mean?
+
+To me in the security Space, there's only one source, not two.
+```
+<br/>
+
+Datasources are a non-concrete description by Mitre that seems to suggest the context of evidence needed to be successful at pursuing visibility or detection capabilities for the given technique. This query gets you the datasources as provided by Mitre in their CTI github
+
+* the `-t` parameters with the term `datasources`
+
+<br/>
+
+```bash
+# Assumes you want to see the Datasources
+# for the enterprise matrix
+#
+$> mitre-assistant -m enterprise -t "datasources"
+```
+
+<br/>
+
+## TODO: ADD Screenshot here
+
+<br/>
+<br/>
+
+## *Searching For The Platforms*
+Platforms are the relevant operating systems where a technique is exercised or abused by an adversary. To get the platforms in the enterprise matrix use the keyword `platforms`.
+
+* the `-t` parameters with the term `platforms`
+
+<br/>
+
+```bash
+# Assumes you want to see the Datasources
+# for the enterprise matrix
+#
+$> mitre-assistant -m enterprise -t "platforms"
+```
+
+<br/>
+
+## TODO: ADD Screenshot here
+
+<br/>
+
+## *Searching For Edge Cases:  Techniques Without a Datasource*
+This is the edge-case that drove to create this tool for myself.  I found someone's tool incorrectly parsed the matrix and I needed to report to my management the plan of action based on data sources.  This is very important for practitioners who leverage the matrix for real world tactical operations.
+
+Reference this example:  [NO_DATA_SOURCE_SAMPLE](https://github.com/dfirence/mitre-assistant/issues/1)
+
+Use the keyword `nodatasources` to obtain a list of active techniques that may not have an assigned datasource by Mitre.
+
+* the `-t` parameters with the term `nodatasources`
+
+<br/>
+
+```bash
+# Assumes you want to see the Datasources
+# for the enterprise matrix
+#
+$> mitre-assistant -m enterprise -t "nodatasources"
+```
+
+<br/>
+
+## TODO: ADD Screenshot here
+
+<br/>
+<br/>
+
+# **Statistical Experiments**
+As I mentioned, my work with this matrix is at the provider level, I have to devise coverage plans, or brainstorming workshops with my fellow blue-teamers to understand what an emulation plan means in terms of effort, engineering for new content and consequently sizing our systems to increase our visibility and detection needs.
+
+These experiments were very useful to me a couple of years ago as I started learning about the Mitre ATT&CK matrizes.
+
+<br/>
+
+## TODO: Awesome Stuff here
