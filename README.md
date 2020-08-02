@@ -228,6 +228,7 @@ $> mitre-assistant search -m enterprise -t "stats"
 
 <br/>
 <br/>
+
 ## *Searching The Enterprise Matrix For A Single Technique By ID*
 
 
