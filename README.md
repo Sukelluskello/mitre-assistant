@@ -304,10 +304,10 @@ $> mitre-assistant -m enterprise -t "nodatasources"
 <br/>
 <br/>
 
-# **Statistical Experiments**
+# **Statistical Stuff**
 As I mentioned, my work with this matrix is at the provider level, I have to devise coverage plans, or brainstorming workshops with my fellow blue-teamers to understand what an emulation plan means in terms of effort, engineering for new content and consequently sizing our systems to increase our visibility and detection needs.
 
-These experiments were very useful to me a couple of years ago as I started learning about the Mitre ATT&CK matrizes.
+These experiments were very useful to me a couple of years ago as I started learning about the Mitre ATT&CK matrixes.
 
 <br/>
 
