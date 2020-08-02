@@ -293,7 +293,7 @@ impl EnterpriseMatrixSearcher {
     {
         let mut _table = Table::new();
         _table.add_row(Row::new(vec![
-            Cell::new("IDX").style_spec("FW"),
+            Cell::new("INDEX").style_spec("FW"),
             Cell::new("PLATFORMS").style_spec("FW"),
         ]));
         let _json: Vec<String> = serde_json::from_str(results[0].as_str()).expect("(?) Error: Unable To Deserialize Search Results By DataSources");
