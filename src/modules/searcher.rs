@@ -380,21 +380,25 @@ impl EnterpriseMatrixSearcher {
     {
         let mut _table = Table::new();
         _table.add_row(Row::new(vec![
+            Cell::new("INDEX").style_spec("FW"),
             Cell::new("STATUS").style_spec("FR"),
             Cell::new("TID").style_spec("FR"),
             Cell::new("TECHNIQUE"),
         ]));
+        let mut _index: usize = 0;
         for _item in results.iter() {
             let mut _json: Vec<(&str, &str)> = serde_json::from_str(_item.as_str()).expect("(?) Error:  Render Table Deserialization For Revoked");
             _json.sort();
             for (_tid, _technique) in _json.iter() {
                 _table.add_row(
                     Row::new(vec![
+                        Cell:new((_index + 1).to_string().as_str()),
                         Cell::new("Revoked"),
                         Cell::new(_tid),
                         Cell::new(_technique)
                     ])
                 );
+                _index += 1;
             }
         }
         _table.printstd();
