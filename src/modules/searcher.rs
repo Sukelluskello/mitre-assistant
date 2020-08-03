@@ -412,6 +412,9 @@ impl EnterpriseMatrixSearcher {
         ]));
         let _item = &results[0];
         let _json: EnterpriseMatrixStatistics = serde_json::from_str(_item.as_str()).expect("(?) Error:  Render Table Deserialization For Stats");
+        // Uniques - Overview Section
+        // Describes the uniq number of techniques
+        // by platform only - no tactics are included
         _table.add_row(
             Row::new(vec![
                 Cell::new("By Uniques").style_spec("FY"),
@@ -448,6 +451,9 @@ impl EnterpriseMatrixSearcher {
                 Cell::new(_json.count_datasources.to_string().as_str()),
             ])
         );
+        // Totals - Overview Section
+        // Describes the total number of techniques & subtechniques
+        // by active, revoked - no tactics are included
         _table.add_empty_row();
         _table.add_row(
             Row::new(vec![
@@ -471,6 +477,9 @@ impl EnterpriseMatrixSearcher {
                 Cell::new("Active Subtechniques"),
                 Cell::new(_json.count_active_total_subtechniques.to_string().as_str()),
         ]));
+        // Totals - Techniques Section
+        // Describes the total number of techniques
+        // by platform only - no tactics are included
         _table.add_empty_row();        
         _table.add_row(
             Row::new(vec![
@@ -532,6 +541,9 @@ impl EnterpriseMatrixSearcher {
                 Cell::new(_json.count_techniques_windows.to_string().as_str()),
             ])
         );                                                        
+        // Totals - Subtechniques Section
+        // Describes the total number of techniques
+        // by platform only - no tactics are included
         _table.add_empty_row();
         _table.add_row(
             Row::new(vec![
@@ -593,6 +605,9 @@ impl EnterpriseMatrixSearcher {
                 Cell::new(_json.count_subtechniques_windows.to_string().as_str()),
             ])
         );                                                              
+        // General Section
+        // Used for placeholders if items (objects) not yet analyzed
+        // These are TODOs
         _table.add_empty_row();
         _table.add_row(
             Row::new(vec![
