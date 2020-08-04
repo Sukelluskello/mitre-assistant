@@ -87,7 +87,7 @@ impl EnterpriseMatrixSearcher {
         else if !search_term.contains(",") {
             if _scanner.pattern.is_match(search_term) {
                 let _idx: Vec<usize> = _scanner.pattern.matches(search_term).into_iter().collect();
-                _valid.push((search_term, _idx[0]));  // Search Term 1usize
+                _valid.push((search_term, _idx[0]));  // Search Term 0usize
             }
         }
         else if search_term.contains(",") {
@@ -96,7 +96,7 @@ impl EnterpriseMatrixSearcher {
                         .filter(|_x| _scanner.pattern.is_match(_x))
                         .map(|_x| {
                             let _idx: Vec<_> = _scanner.pattern.matches(_x).into_iter().collect();
-                            (*_x, _idx[0]) // Search Term 2usize
+                            (*_x, _idx[0]) // Search Term 1usize
                         })
                         .collect();
         }        
@@ -239,7 +239,10 @@ impl EnterpriseMatrixSearcher {
             }
         }
         if _results.len() == 0usize {
-                // edge case -- Thank you Mitre for making this difficult
+            // If no results then we want to search for a two conditions
+            //      1. When the user wants subtechniques, then get them
+            //      2. Or, when there are revoked techniques, let's add these
+            //          to save time for users writing more queries
             if _wants_subtechniques {
                 for _subtechnique in _json.breakdown_subtechniques.platforms.iter() {
                     if _subtechnique.tid.contains(technique_id.to_uppercase().as_str()) {
@@ -247,8 +250,20 @@ impl EnterpriseMatrixSearcher {
                     }
                 }
             }
+            // Get Revoked Techniques
+            let mut _results = vec![];
+            for _revoked in _json.revoked_techniques.iter() {
+                if _revoked.0.to_lowercase().as_str() == technique_id.to_lowercase().as_str() {
+                    let mut _modified = EnterpriseTechnique::new();
+                    _modified.tid = _revoked.0.clone();
+                    _modified.technique = _revoked.1.clone();
+                    _results.push(_modified);
+                }
+            }
+            serde_json::to_string_pretty(&_results).expect("(?) Error:  Unable To Deserialize Search Results By Revoked Technique ID")
+        } else {
+            serde_json::to_string_pretty(&_results).expect("(?) Error:  Unable To Deserialize Search Results By Technique ID")
         }
-        serde_json::to_string_pretty(&_results).expect("(?) Error:  Unable To Deserialize Search Results By Technique ID")
     }
     fn enterprise_by_subtechnique_id(&self, technique_id: &str) -> String
     {
@@ -359,22 +374,41 @@ impl EnterpriseMatrixSearcher {
             } else {
                 _st.push_str("n_a");
             }
-            _table.add_row(
-                Row::new(vec![
-                    Cell::new((_idx + 1).to_string().as_str()),
-                    Cell::new("Active"),
-                    Cell::new(_row.platform.replace("|", "\n").as_str()),
-                    Cell::new(_row.tactic.as_str()),
-                    Cell::new(_row.tid.as_str()).style_spec("FG"),
-                    Cell::new(_row.technique.as_str()).style_spec("FW"),
-                    Cell::new(_st.replace("|", "\n").as_str()).style_spec("FW"),
-                    Cell::new(_row.datasources.replace("|", "\n").as_str())
-                ])
-            ); 
+            // When a revoked Technique is part of the result
+            // then create a row for the revoked technique
+            if _row.datasources.as_str() == "n_a" {
+                _table.add_row(
+                    Row::new(vec![
+                        Cell::new((_idx + 1).to_string().as_str()),
+                        Cell::new("Revoked").style_spec("FR"),
+                        Cell::new(_row.platform.replace("|", "\n").as_str()),
+                        Cell::new(_row.tactic.as_str()),
+                        Cell::new(_row.tid.as_str()).style_spec("FG"),
+                        Cell::new(_row.technique.as_str()).style_spec("FW"),
+                        Cell::new(_st.replace("|", "\n").as_str()).style_spec("FW"),
+                        Cell::new(_row.datasources.replace("|", "\n").as_str())
+                    ])
+                ); 
+            } else {
+                _table.add_row(
+                    Row::new(vec![
+                        Cell::new((_idx + 1).to_string().as_str()),
+                        Cell::new("Active"),
+                        Cell::new(_row.platform.replace("|", "\n").as_str()),
+                        Cell::new(_row.tactic.as_str()),
+                        Cell::new(_row.tid.as_str()).style_spec("FG"),
+                        Cell::new(_row.technique.as_str()).style_spec("FW"),
+                        Cell::new(_st.replace("|", "\n").as_str()).style_spec("FW"),
+                        Cell::new(_row.datasources.replace("|", "\n").as_str())
+                    ])
+                ); 
+            }
             _st.clear();
             _idx += 1;            
         }
+        println!("{}", "\n\n");
         _table.printstd();
+        println!("{}", "\n\n");
     }
     fn render_enterprise_revoked_table(&self, results: &Vec<String>)
     {
@@ -385,23 +419,26 @@ impl EnterpriseMatrixSearcher {
             Cell::new("TID").style_spec("FR"),
             Cell::new("TECHNIQUE"),
         ]));
-        let mut _index: usize = 0;
+        let mut _idx: usize = 0;
         for _item in results.iter() {
             let mut _json: Vec<(&str, &str)> = serde_json::from_str(_item.as_str()).expect("(?) Error:  Render Table Deserialization For Revoked");
             _json.sort();
             for (_tid, _technique) in _json.iter() {
+
                 _table.add_row(
                     Row::new(vec![
-                        Cell:new((_index + 1).to_string().as_str()),
+                        Cell::new((_idx + 1).to_string().as_str()),
                         Cell::new("Revoked"),
-                        Cell::new(_tid),
-                        Cell::new(_technique)
+                        Cell::new(_tid).style_spec("FR"),
+                        Cell::new(_technique).style_spec("FW")
                     ])
                 );
-                _index += 1;
+                _idx += 1;
             }
         }
+        println!("{}", "\n\n");
         _table.printstd();
+        println!("{}", "\n\n");
     }
     fn render_enterprise_stats(&self, results: &Vec<String>)
     {

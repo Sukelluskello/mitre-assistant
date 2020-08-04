@@ -110,11 +110,11 @@ impl EnterpriseTechnique {
     pub fn new() -> Self
     {
         EnterpriseTechnique {
-            platform:       String::from(""),
+            platform:       String::from("n_a"),
             tid:            String::from(""),
             technique:      String::from(""),
-            tactic:         String::from(""),
-            datasources:    String::from("None"),
+            tactic:         String::from("n_a"),
+            datasources:    String::from("n_a"),
             has_subtechniques: false,
             subtechniques:  vec![],
             count_subtechniques: 0usize

@@ -4,9 +4,23 @@ A custom, more useful, and much cooler MITRE-CTI-CLIENT.
 
 <br/>
 
-![image](https://user-images.githubusercontent.com/11415591/89109095-36a99180-d40c-11ea-95ef-da114f6ea7ca.png)
+![image](https://user-images.githubusercontent.com/11415591/89246990-4e367500-d5da-11ea-9519-d94994fecdfc.png)
 
 <br/>
+
+```bash
+# Assumes you have installed the rust tool chain
+# and that you have the `cargo` package manager
+#
+# Preferably use rust stable channel
+#
+$> cargo install mitre-assistant
+```
+<br/>
+
+<br/>
+
+<hr>
 
 ## W.I.P - Status
 - [x] Mitre Enterprise Matrix
@@ -23,6 +37,8 @@ A custom, more useful, and much cooler MITRE-CTI-CLIENT.
    - [ ] JSON
    - [ ] Rich Web
 
+<hr>
+
 <br/>
 <br/>
 
@@ -34,6 +50,7 @@ You got 3 ways to start using this `bad-boy`:
 **2.** If you already have rust stable toolchain installed, then simply use `cargo install mitre-assistant`
 
 **3.** Or, if you just love building from source, follow the instructions in the `build from source section` below.
+
 
 <br/>
 <br/>

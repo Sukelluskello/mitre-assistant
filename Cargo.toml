@@ -1,6 +1,6 @@
 [package]
 name = "mitre-assistant"
-version = "0.0.2"
+version = "0.0.3"
 authors = ["dfirence <carlos.diaz.pro@gmail.com>"]
 edition = "2018"
 description = "A more flexible, useful and cooler Mitre ATT&CK Client"
