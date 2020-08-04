@@ -222,7 +222,7 @@ You have to tell the `search subcommand` which matrix it is going to work with b
 |TERM|MATRIX|PURPOSE|
 |----|------|-------|
 |`datasources`|*enterprise*|Returns all datasources from the matrix|
-|`platforms`|*enterprise|Returns all the platforms (operating systems) from the matrix|
+|`platforms`|*enterprise*|Returns all the platforms (operating systems) from the matrix|
 |`nosub`|*enterprise*|Returns all the active techniques which do not have/use subtechniques|
 |`revoked`|*enterprise*|Returns all of the technique id & name references revoked by Mitre|
 |`stats`|*enterprise*|Returns an overview of `uniq` counts and `total` counts of key data elements|
