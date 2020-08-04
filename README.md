@@ -223,6 +223,7 @@ You have to tell the `search subcommand` which matrix it is going to work with b
 |----|------|-------|
 |`datasources`|*enterprise*|Returns all datasources from the matrix|
 |`platforms`|*enterprise*|Returns all the platforms (operating systems) from the matrix|
+|`nodatasources`|*enterprise*|Returns all techniques **without** datasources|
 |`nosub`|*enterprise*|Returns all the active techniques which do not have/use subtechniques|
 |`revoked`|*enterprise*|Returns all of the technique id & name references revoked by Mitre|
 |`stats`|*enterprise*|Returns an overview of `uniq` counts and `total` counts of key data elements|
@@ -366,7 +367,7 @@ $> mitre-assistant -m enterprise -t "datasources"
 
 <br/>
 
-## TODO: ADD Screenshot here
+![image](https://user-images.githubusercontent.com/11415591/89129604-8bacdc80-d4cc-11ea-9e12-5dea5824a51a.png)
 
 <br/>
 <br/>
@@ -387,7 +388,7 @@ $> mitre-assistant -m enterprise -t "platforms"
 
 <br/>
 
-## TODO: ADD Screenshot here
+![image](https://user-images.githubusercontent.com/11415591/89129618-9a938f00-d4cc-11ea-80e0-c30a530bf706.png)
 
 <br/>
 
