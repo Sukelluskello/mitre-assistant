@@ -215,6 +215,15 @@ You have to tell the `search subcommand` which matrix it is going to work with b
 * the `-t` parameter to provide your search term.
 
 <br/>
+<br/>
+## *Search Terms*
+
+|TERM|MATRIX|PURPOSE|
+|----|------|-------|
+|`stats`|*enterprise*|An overview of `uniq` counts and `total` counts of key data elements|
+
+<br/>
+<br/>
 
 ## *Searching The Enterprise Matrix For An Overview Stats Summary*
 You use the keyword `stats` in your search term, like this
