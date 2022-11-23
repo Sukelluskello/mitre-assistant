@@ -56,7 +56,7 @@ You got 3 ways to start using this `bad-boy`:
 <br/>
 
 ## Releases - Binaries
-Head over to the [releases section](https://github.com/dfirence/mitre-assistant/releases/) and download the binary for your OS.  However, note, I am only supporting binaries for **64 bit versions** of:
+Head over to the [releases section](https://github.com/Sukelluskello/mitre-assistant/releases) and download the binary for your OS.  However, note, I am only supporting binaries for **64 bit versions** of:
 
 * MacOS
 * Debian
